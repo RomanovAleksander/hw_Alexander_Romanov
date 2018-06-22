@@ -57,7 +57,7 @@
     left: 32%;
     top: 260px;
     width: 420px;
-    max-height: 500px;
+    height: 500px;
     @include laptop {
       position: initial;
     }
@@ -143,7 +143,7 @@
   margin-left: 460px;
   top: 260px;
   width: 420px;
-  max-height: 500px;
+  height: 500px;
   border-radius: 6px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
