@@ -65,7 +65,7 @@
       width: 90%;
     }
     @include xs-mobile {
-      max-height: 700px;
+      height: 600px !important;
     }
   }
 }
@@ -159,7 +159,7 @@
     width: 90%;
   }
   @include xs-mobile {
-    max-height: 700px;
+    height: 600px !important;
   }
 }
 
