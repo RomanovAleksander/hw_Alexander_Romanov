@@ -1,0 +1,89 @@
+@import './mixins.scss';
+
+body {
+  background-color: #f8f9fc;
+}
+
+.benefits {
+  display: flex;
+  position: relative;
+  max-width: 1257px;
+  height: 400px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  box-shadow: 0 10px 34px 0 rgba(210, 210, 210, 0.5);
+  border-radius: 10px;
+  z-index: 2;
+  top: -55px;
+  @include mobile {
+    width: 80%;
+    height: initial;
+    flex-direction: column;
+  }
+  &__content-block {
+    width: 33.333%;
+    height: 100%;
+    @include mobile {
+      width: initial;
+      height: initial;
+    }
+  }
+
+}
+
+.content-block {
+  &__item {
+    margin: 10% auto;
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    width: 70%;
+  }
+  &__icon-first {
+    width: 20%;
+    height: 20%;
+    background-image: url('../../assets/images/Secure_every_transaction.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    @include tablet {
+      display: none;
+    }
+  }
+  &__icon-second {
+    width: 20%;
+    height: 20%;
+    background-image: url('../../assets/images/Fastest_mining.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    @include tablet {
+      display: none;
+    }
+  }
+  &__icon-third {
+    width: 20%;
+    height: 20%;
+    background-image: url('../../assets/images/Fastest_miningone.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    @include tablet {
+      display: none;
+    }
+  }
+  &__caption {
+    color: #031d5b;
+    padding: 2rem 0;
+  }
+  &__rectangle {
+    width: 60px;
+    height: 4px;
+    background-color: #1fdb84;
+  }
+  &__text {
+    line-height: 2;
+    padding: 2rem 0;
+    color: #5b6c94;
+  }
+}

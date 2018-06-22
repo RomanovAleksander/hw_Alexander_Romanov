@@ -1,0 +1,58 @@
+.works-with-any-platform {
+  margin: 0 auto;
+  margin-top: 200px;
+  width: 251px;
+  height: 19px;
+  font-size: 16px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  font-weight: bold;
+  text-align: center;
+  color: #031d5b;
+}
+
+.platforms {
+  width: 952px;
+  margin: 0 auto;
+  margin-top: 46px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include tablet {
+    flex-direction: column;
+    width: initial;
+  }
+}
+
+.year {
+  margin: 0 auto;
+  margin-top: 180px;
+  max-width: 780px;
+  height: 32px;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  text-align: center;
+  color: #5b6c94;
+}
+
+.sections {
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 114px;
+  max-width: 780px;
+  height: 32px;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  text-align: center;
+  color: #5b6c94;
+}
+

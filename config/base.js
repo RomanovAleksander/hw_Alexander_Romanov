@@ -12,6 +12,7 @@ const baseConf = (_path) => {
         index: ['babel-polyfill', './src/index/index.js'],
         lesson_6: ['babel-polyfill', './src/lesson_6/lesson_6.js'],
         hw_1: ['babel-polyfill', './src/hw_1/hw_1.js'],
+        lesson_7: ['babel-polyfill', './src/lesson_7/lesson_7.js'],
     };
 
     const plugins = Object.keys(entry).reduce((acc, name) => {
@@ -72,6 +73,13 @@ const baseConf = (_path) => {
                     ]
                 },
                 {
+                    test: /\.css/,
+                    loader: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: ['css-loader', 'autoprefixer-loader?browsers=last 5 version',]
+                    })
+                },
+                {
                     test: /\.scss/,
                     loader: ExtractTextPlugin.extract({
                         fallback: 'style-loader',
@@ -89,11 +97,11 @@ const baseConf = (_path) => {
                      * You can add here any file extension you want to get copied to your output
                      */
                     test: /\.(png|jpg|jpeg|gif|svg)$/,
-                    loader: 'file-loader?publicPath=../&name=assets/images/[name].[ext]'
+                    loader: 'file-loader?name=assets/images/[name].[ext]'
                 },
                 {
                     test: /\.(eot|ttf|woff|woff2)$/,
-                    loader: 'file-loader?publicPath=../&name=assets/fonts/[name].[ext]'
+                    loader: 'file-loader?name=assets/fonts/[name].[ext]'
                 }
             ]
         },

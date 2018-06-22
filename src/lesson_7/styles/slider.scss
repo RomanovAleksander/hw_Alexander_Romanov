@@ -1,0 +1,240 @@
+@import './mixins.scss';
+
+.customers-part {
+  position: relative;
+  margin: 0 auto;
+  height: 970px;
+  max-width: 1519px;
+  margin-top: 250px;
+  display: flex;
+  @include tablet {
+    height: initial;
+  }
+  &__customers-container {
+    display: flex;
+    width: 46.68%;
+    height: 100%;
+    @include laptop {
+      display: none;
+    }
+  }
+  &__slider-container {
+    display: flex;
+    align-items: flex-end;
+    width: 53.32%;
+    height: 100%;
+    background-color: $background-dark;
+    @include laptop {
+      width: 100%;
+      flex-direction: column;
+    }
+  }
+  &__what-customers-say {
+    width: 280px;
+    height: 104px;
+    position: absolute;
+    font-size: 40px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    color: #031d5b;
+    left: 11.19%;
+    top: 70px;
+    @include laptop {
+      width: initial;
+    }
+  }
+  &__comment-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: absolute;
+    left: 32%;
+    top: 260px;
+    width: 420px;
+    height: 500px;
+    @include laptop {
+      position: initial;
+    }
+    @include tablet {
+      width: 90%;
+    }
+  }
+}
+
+.comment-block {
+  border-radius: 6px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: #1fdb84;
+  box-shadow: 12px 12px 40px 0 rgba(31, 219, 132, 0.5);
+  &__content-block {
+    width: 70%;
+    height: 100%;
+    margin: 15% auto;
+  }
+}
+
+.comment-content-block {
+  &__header-logo {
+    display: flex;
+    flex-direction: row;
+  }
+  &__text {
+    padding-top: 15px;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2;
+    letter-spacing: normal;
+    color: #ffffff;
+  }
+  &__name {
+    display: flex;
+    width: 85%;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-top: 50px;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2;
+    letter-spacing: normal;
+    color: #ffffff;
+  }
+}
+
+.trapeze {
+  margin-top: 30px;
+  width: 165px;
+  height: 413px;
+  border-left: 165px solid rgba(31, 219, 132, 0.1);
+  border-bottom: 263px solid transparent;
+}
+
+.trapeze:nth-child(1) {
+  margin-left: 20.73%;
+  margin-right: 6.77%;
+}
+
+.hl-trapeze {
+  width: 18px;
+  height: 40px;
+  border-left: 18px solid #ffffff;
+  border-bottom: 20px solid transparent;
+  margin: 6.5px;
+}
+
+.comment-block-two {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: absolute;
+  margin-left: 460px;
+  top: 260px;
+  width: 420px;
+  height: 500px;
+  border-radius: 6px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 12px 12px 40px 0 rgba(121, 121, 121, 0.3);
+  @include laptop {
+    position: initial;
+    margin-left: 40px;
+  }
+  @include tablet {
+    margin-left: initial;
+    margin-top: 40px;
+    width: 90%;
+  }
+}
+
+.hl-trapeze-two {
+  width: 18px;
+  height: 40px;
+  border-left: 18px solid #1fdb84;
+  border-bottom: 20px solid transparent;
+  margin: 6.5px;
+}
+
+.comment-content-block__text-two {
+  padding-top: 15px;
+  font-size: 18px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  color: #5b6c94;
+}
+
+.comment-content-block__name-two {
+  display: flex;
+  width: 85%;
+  justify-content: space-between;
+  flex-direction: row;
+  padding-top: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  color: #031d5b;
+}
+
+.own-studio-grey {
+  opacity: 0.8;
+}
+
+.own-studio-light-grey {
+  opacity: 0.4;
+}
+
+.move-down {
+  margin-top: 37px;
+}
+
+.sliders {
+  display: flex;
+  margin: 90px 100px;
+  @include laptop {
+    margin: 60px auto;
+  }
+}
+
+.circle {
+  margin: 8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  border: 3px solid white;
+}
+
+.circle-white {
+  margin: 8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  background: white;
+}
+
+
+.slider-container__comment-blocks {
+  @include laptop {
+    display: flex;
+    margin: 200px auto;
+    height: 37%;
+  }
+  @include tablet {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 200px;
+    align-items: center;
+  }
+}

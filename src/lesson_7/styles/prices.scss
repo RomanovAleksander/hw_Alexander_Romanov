@@ -1,0 +1,199 @@
+@import './mixins.scss';
+
+.paid_plan {
+  margin: 0 auto;
+  margin-top: 90px;
+  max-width: 810px;
+  height: 128px;
+  font-size: 35px;
+  line-height: 1.6;
+  letter-spacing: normal;
+  text-align: center;
+  color: #32325c;
+}
+
+.period {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 60px;
+  max-width: 470px;
+  height: 60px;
+  border-radius: 5px;
+  background-color: #f1fff8;
+  border: solid 1px #aefdd9;
+  &__monthly {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 162px;
+    height: 100%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: solid 1px #aefdd9;
+    background-color: #ffffff;
+  }
+  &__yearly {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 308px;
+    height: 100%;
+  }
+}
+
+.monthly__text {
+  font-size: 16px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  color: #1fdb84;
+}
+
+.yearly__text {
+  font-size: 16px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  color: #6fdeaa;
+}
+
+.prices {
+  max-width: 1134px;
+  height: 665px;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 64px;
+  @include mobile {
+    flex-direction: column;
+    height: initial;
+  }
+  &__item {
+    width: 378px;
+    height: 665px;
+    @include mobile {
+      width: initial;
+    }
+  }
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &__top-content {
+    width: 100%;
+    height: 40%;
+    @include pricesItems;
+    flex-direction: column;
+  }
+  &__center-content {
+    width: 100%;
+    height: 35%;
+    @include pricesItems;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  &__bottom-content {
+    width: 100%;
+    height: 20%;
+    @include pricesItems;
+    flex-direction: column;
+  }
+  &__text {
+    margin-top: 13px;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #5b6c94;
+  }
+  &__border-block {
+    width: 100%;
+    height: 3px;
+    background-color: #0a8aff;
+
+  }
+}
+
+.top-content {
+  &__caption {
+    font-size: 24px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    text-align: center;
+    color: #32325c
+  }
+  &__price {
+    margin-top: 31px;
+    font-size: 72px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 0.89;
+    letter-spacing: normal;
+    text-align: center;
+    color: #1fdb84;
+  }
+}
+
+.center-content {
+  &__id {
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #5b6c94;
+  }
+  &__url {
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #5b6c94;
+  }
+  &__inf-link {
+    margin-top: 17px;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.75;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #5b6c94;
+  }
+  &__member {
+    margin-top: 17px;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #5b6c94;
+  }
+}
+
+.prices__item:nth-child(2) {
+  background-color: #ffffff;
+  box-shadow: 0 7px 24px 0 rgba(83, 83, 83, 0.1);
+}
+
+.none {
+  visibility: hidden;
+}

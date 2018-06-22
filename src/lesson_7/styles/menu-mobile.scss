@@ -1,0 +1,58 @@
+@import './mixins.scss';
+
+@media screen and (max-width: 720px) {
+  .page-nav__menu {
+    position: absolute;
+    top: 75px;
+    left: 0;
+    flex-direction: column;
+    width: 100vw;
+    background-color: $background-dark;
+    opacity: 0;
+    justify-content: flex-start;
+    padding: 0 15px;
+    transform: scaleY(0);
+    transition: all 1s;
+    transform-origin: top;
+  }
+
+  .page-nav.page-nav__expand {
+    background-color:$background-dark;
+  }
+
+  .page-nav__expand .page-nav__menu{
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  .pagel-nav__controls .page-nav__link:last-child {
+    transition-property: transform;
+    transition-duration: 0.5s;
+    transition-delay: 0.6s;
+  }
+
+  .page-nav_expend .page-nav__controls .page-nav__link:last-child {
+    transform: translateX(500px);
+  }
+
+  .page-nav__item {
+    flex-grow: 0;
+    text-align: left;
+    margin: 8px 0;
+    justify-content: flex-start;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .page-nav__link {
+    justify-content: flex-start;
+  }
+
+  .page-nav__controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .global-nav__controls > .page-nav__link {
+    flex-grow: 0;
+  }
+}
