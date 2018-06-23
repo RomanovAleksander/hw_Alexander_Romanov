@@ -1,0 +1,44 @@
+.traffic-light {
+  height: 600px;
+  width: 250px;
+  margin: 50px auto;
+  background-color: rgba(0,0,0,0.76);
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  &__light {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  &__btn {
+    border-radius: 50px;
+    border: none;
+    background-color: grey;
+    color: lightgrey;
+    transition: all 0.5s;
+  }
+}
+
+.red {
+  background-color: red;
+  opacity: 0.5;
+}
+
+.yellow {
+  background-color: yellow;
+  opacity: 0.5;
+}
+
+.green {
+  background-color: green;
+  opacity: 0.5;
+}
+
+.traffic-light__btn:hover {
+  background: black;
+  transition: all 0.5s;
+}
