@@ -1,0 +1,41 @@
+.traffic-light {
+  height: 600px;
+  width: 250px;
+  margin: 50px auto;
+  background-color: rgba(0, 0, 0, 0.76);
+  border-radius: 50px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-align: center;
+      align-items: center; }
+  .traffic-light__light {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    cursor: pointer; }
+  .traffic-light__btn {
+    border-radius: 50px;
+    border: none;
+    background-color: grey;
+    color: lightgrey;
+    transition: all 0.5s; }
+
+.red {
+  background-color: red;
+  opacity: 0.5; }
+
+.yellow {
+  background-color: yellow;
+  opacity: 0.5; }
+
+.green {
+  background-color: green;
+  opacity: 0.5; }
+
+.traffic-light__btn:hover {
+  background: black;
+  transition: all 0.5s; }
