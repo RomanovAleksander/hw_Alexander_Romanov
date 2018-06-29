@@ -5,21 +5,6 @@
   &_active {
     .notification-bar__message {
       display: block;
-      background: red;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
     }
   }
-  &__btn {
-    cursor: pointer;
-    opacity: 0.5;
-    display: block;
-    background: red;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-  }
 }
-
-
