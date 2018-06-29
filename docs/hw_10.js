@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 344);
+/******/ 	return __webpack_require__(__webpack_require__.s = 347);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9051,55 +9051,151 @@ module.exports = function (regExp, replace) {
 /* 341 */,
 /* 342 */,
 /* 343 */,
-/* 344 */
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(125);
-module.exports = __webpack_require__(345);
+module.exports = __webpack_require__(348);
 
 
 /***/ }),
-/* 345 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(346);
+__webpack_require__(349);
 
-var redLight = document.querySelector('.red');
-var yellowLight = document.querySelector('.yellow');
-var greenLight = document.querySelector('.green');
-var clearAll = document.querySelector('button');
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function showRed() {
-    clearLights();
-    redLight.style.opacity = "1";
+console.log('N1');
+function randomInteger(min, max) {
+    var result = Math.floor(min + Math.random() * (max + 1 - min));
+    console.log(result);
 }
+randomInteger(25, 50);
 
-function showYellow() {
-    clearLights();
-    yellowLight.style.opacity = "1";
+console.log('N2');
+var user = _defineProperty({
+    name: 'Vasya',
+    surname: 'Petrov'
+}, 'name', 'Sergey');
+delete user.name;
+console.log(user);
+
+console.log('N3');
+function isEmpty(obj) {
+    for (var key in obj) {
+        return false;
+    }
+    return true;
 }
+var something = {};
+console.log(isEmpty(something));
 
-function showGreen() {
-    clearLights();
-    greenLight.style.opacity = "1";
+console.log('N4');
+var salaries = {
+    John: 400,
+    Jack: 200,
+    test: 'asdasdasd'
+};
+console.log(salaries);
+function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
 }
-
-function clearLights() {
-    redLight.style.opacity = "0.5";
-    yellowLight.style.opacity = "0.5";
-    greenLight.style.opacity = "0.5";
+var sum = 0;
+for (var price in salaries) {
+    if (isNumeric(salaries[price])) {
+        sum += salaries[price];
+    }
 }
+console.log(sum);
 
-redLight.addEventListener('click', showRed);
-yellowLight.addEventListener('click', showYellow);
-greenLight.addEventListener('click', showGreen);
-clearAll.addEventListener('click', clearLights);
+console.log('N5');
+console.log(salaries);
+var max = 0;
+var maxName = void 0;
+for (var name in salaries) {
+    if (max < salaries[name]) {
+        max = salaries[name];
+        maxName = name;
+    }
+}
+console.log(maxName || "нет сотрудников");
+
+console.log('N6');
+var numbers = {
+    first: 200,
+    second: 500,
+    third: 'asdasdasd'
+};
+console.log(numbers);
+function multiplyNumeric() {
+    for (var _number in numbers) {
+        if (isNumeric(numbers[_number])) {
+            numbers[_number] *= 2;
+        }
+    }
+}
+multiplyNumeric();
+console.log(numbers.first, numbers.second);
+
+console.log('N8');
+var number = [];
+for (;;) {
+    var value = +prompt("Введите число");
+    if (!value || value === null || value === '') break;
+    number.push(+value);
+}
+for (var i = 0; i < number.length; i++) {
+    sum += number[i];
+}
+console.log(number);
+
+console.log('N9');
+var array = ['apple', 22, 5, 'test', false];
+console.log(array);
+function find(array, value) {
+    for (var _i = 0; _i < array.length; _i++) {
+        if (array[_i] === value) {
+            return _i;
+        }
+    }
+    return -1;
+}
+console.log(find(array, 5));
+
+console.log('N10');
+var arr = [1, 2, 3, 4, 5, 6, 7, 8];
+function filterRange(arr, a, b) {
+    var result = [];
+    for (var _i2 = 0; _i2 < arr.length; _i2++) {
+        if (arr[_i2] >= a && arr[_i2] <= b) {
+            result.push(arr[_i2]);
+        }
+    }
+    return result;
+}
+console.log(filterRange(arr, 2, 6));
+
+console.log('N11');
+var x = 2;
+var n = 4;
+function pow(x, n) {
+    var result = x;
+    for (var _i3 = 1; _i3 < n; _i3++) {
+        result *= x;
+    }
+    return result;
+}
+console.log(pow(x, n));
 
 /***/ }),
-/* 346 */
+/* 349 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

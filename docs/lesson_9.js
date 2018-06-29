@@ -9062,34 +9062,88 @@ module.exports = __webpack_require__(340);
 
 __webpack_require__(341);
 
+var _lighter = __webpack_require__(342);
+
+var lighterElement = document.querySelector('#lighter1');
+var lighterElement2 = document.querySelector('#lighter2');
+var lighterElement3 = document.querySelector('#lighter3');
+
+(0, _lighter.lighter)(lighterElement);
+(0, _lighter.lighter)(lighterElement2);
+(0, _lighter.lighter)(lighterElement3);
+
 function notificationBar() {
-    var notificationBarElement = document.querySelector('.notification-bar');
-    var control = document.querySelector('.notification-bar__btn');
 
-    console.log(control);
-    console.log(notificationBarElement);
+  var notificationBarElement = document.querySelector('.notification-bar');
+  var control = document.querySelector('.notification-bar__btn');
 
-    function toggleMessage() {
-        notificationBarElement.classList.toggle('notification-bar_active');
-    }
+  console.log(control);
+  console.log(notificationBarElement);
 
-    control.addEventListener('click', toggleMessage);
+  function toggleMessage() {
+    notificationBarElement.classList.toggle('notification-bar_active');
+  }
+
+  control.addEventListener('click', toggleMessage);
 }
 
 notificationBar();
 
-//
-// const someBtnNext = document.querySelector('.btnNext');
-// console.log(someBtnNext);
-//
-// function hi() {
-//     alert('Hello');
-// }
-//
-// someBtnNext.addEventListener('click', hi);
-
 /***/ }),
 /* 341 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 342 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.lighter = lighter;
+
+__webpack_require__(343);
+
+function lighter(lighterElement) {
+    var lights = lighterElement.querySelectorAll('.street-lighter__light');
+
+    function switchOff() {
+        for (var i = 0; i < lights.length; i++) {
+            var light = lights[i];
+            light.classList.remove('street-lighter__light_active');
+        }
+        console.log('SWITCHED');
+    }
+
+    function switchOn(element) {
+        console.log('ENABLED');
+        element.classList.add('street-lighter__light_active');
+    }
+
+    function clickHandler(element) {
+        switchOff();
+        switchOn(element);
+    }
+
+    var _loop = function _loop(i) {
+        var light = lights[i];
+        light.addEventListener('click', function () {
+            clickHandler(light);
+        });
+    };
+
+    for (var i = 0; i < lights.length; i++) {
+        _loop(i);
+    }
+}
+
+/***/ }),
+/* 343 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
