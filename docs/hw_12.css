@@ -1,0 +1,35 @@
+.lamps {
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 500px;
+  margin: 50px auto;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  -ms-flex-align: center;
+      align-items: center; }
+  .lamps__lamp {
+    width: 50px;
+    height: 50px;
+    background-color: lightgrey;
+    border-radius: 50%; }
+    .lamps__lamp_red.lamps__lamp_active {
+      background-color: red; }
+    .lamps__lamp_yellow.lamps__lamp_active {
+      background-color: yellow; }
+    .lamps__lamp_green.lamps__lamp_active {
+      background-color: green; }
+    .lamps__lamp_aqua.lamps__lamp_active {
+      background-color: aqua; }
+    .lamps__lamp_orange.lamps__lamp_active {
+      background-color: orange; }
+
+.lamps__item {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  height: 80px; }
+  .lamps__item__btn_green.lamps__item__btn_active {
+    background-color: chartreuse; }
