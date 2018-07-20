@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 354);
+/******/ 	return __webpack_require__(__webpack_require__.s = 377);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9061,101 +9061,145 @@ module.exports = function (regExp, replace) {
 /* 351 */,
 /* 352 */,
 /* 353 */,
-/* 354 */
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(125);
-module.exports = __webpack_require__(355);
+module.exports = __webpack_require__(378);
 
 
 /***/ }),
-/* 355 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(356);
+__webpack_require__(379);
 
-console.log('N7');
-function greeting() {
-    console.log('Hello my kind: ' + this.kind);
-    console.log('My age: ' + this.age);
-    console.log('My way to travel: ' + this.moveType);
-}
+var _accordion = __webpack_require__(380);
 
-function painting() {
-    console.log('My color: ' + this.color);
-}
-
-function distribution() {
-    console.log('My type: ' + this.type);
-}
-
-function Animal(kind, age, moveType) {
-    this.kind = kind;
-    this.age = age;
-    this.moveType = moveType;
-    this.greet = greeting;
-}
-
-function Horse(kind, age, moveType, color) {
-    Animal.apply(this, arguments);
-    this.color = color;
-    this.bodyColor = painting;
-}
-
-function Bird(kind, age, moveType, type) {
-    Animal.apply(this, arguments);
-    this.type = 'parrot';
-    this.birdType = distribution;
-}
-
-var animal = new Animal('Bear', 5, 'run');
-var animal2 = new Horse('Horse', 7, 'run', 'brown');
-var animal3 = new Bird('Bird', 1, 'fly', 'parrot');
-
-animal.greet();
-animal2.greet();
-animal2.bodyColor();
-animal3.greet();
-animal3.birdType();
-
-console.log('N7.1');
-function Machine(power) {
-    this._power = power;
-    this._enabled = false;
-    var self = this;
-    this.enable = function () {
-        self._enabled = true;
-    };
-    this.disable = function () {
-        self._enabled = false;
-    };
-}
-
-console.log('N7.2');
-function Fridge(power) {
-    Machine.apply(this, arguments);
-    var food = [];
-    this.addFood = function (food) {
-        if (!this._enabled) {
-            console.log('Error');
-        }
-        if (food.length > this._power / 100) {
-            console.log('Error');
-        }
-    };
-    // this.removeFood = function() {
-    //     delete food;
-    // };
-    this.getFood = function () {
-        return food;
-    };
-}
+var accordeon = new _accordion.Accordion(document.querySelector('.content'), [{
+    title: 'Section 1',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et\n' + '                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip\n' + '                ex\n' + '                ea commodo consequat.'
+}, {
+    title: 'Section 2',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et\n' + '                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip\n' + '                ex\n' + '                ea commodo consequat.'
+}, {
+    title: 'Section 3',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et\n' + '                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip\n' + '                ex\n' + '                ea commodo consequat.'
+}]);
 
 /***/ }),
-/* 356 */
+/* 379 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Accordion = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+__webpack_require__(381);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ACCORDION_GENERAL_CLASS = 'item';
+var ACCORDION_BTN_CLASS = ACCORDION_GENERAL_CLASS + '__accordion';
+var ACCORDION_TEXT_CLASS = ACCORDION_GENERAL_CLASS + '__text';
+var ACCORDION_ACTIVE_CLASS = ACCORDION_GENERAL_CLASS + '_active';
+var TEXT = 'text';
+
+var Accordion = exports.Accordion = function () {
+    function Accordion(targetElement, array) {
+        _classCallCheck(this, Accordion);
+
+        this.targetEl = targetElement;
+        this.array = array;
+        this.itemArray = [];
+        this.render();
+        this.renderList();
+        this.toggle();
+    }
+
+    _createClass(Accordion, [{
+        key: 'render',
+        value: function render() {
+            this.item = document.createElement('div');
+            this.titleElement = document.createElement('button');
+            this.listElement = document.createElement('div');
+            this.text = document.createElement('p');
+
+            this.item.classList.add(ACCORDION_GENERAL_CLASS);
+            this.titleElement.classList.add(ACCORDION_BTN_CLASS);
+            this.listElement.classList.add(ACCORDION_TEXT_CLASS);
+            this.text.classList.add(TEXT);
+
+            this.item.appendChild(this.titleElement);
+            this.item.appendChild(this.listElement);
+            this.listElement.appendChild(this.text);
+
+            this.itemArray.push(this.item);
+        }
+    }, {
+        key: 'renderList',
+        value: function renderList() {
+            for (var i = 0; i < this.array.length; i++) {
+                this.render();
+                this.targetEl.appendChild(this.item);
+                this.titleElement.textContent = this.array[i].title;
+                this.text.textContent = this.array[i].text;
+            }
+        }
+    }, {
+        key: 'toggle',
+        value: function toggle() {
+            this.itemArray.forEach(function (item) {
+                item.addEventListener('click', function () {
+                    item.classList.toggle(ACCORDION_ACTIVE_CLASS);
+                });
+            });
+        }
+    }]);
+
+    return Accordion;
+}();
+
+/***/ }),
+/* 381 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

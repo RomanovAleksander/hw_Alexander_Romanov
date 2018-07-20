@@ -13,7 +13,8 @@ class Lamps {
     }
 
     switchOffLamp() {
-        this.lamps.forEach((lamp) => {
+        this.lamps.forEach(
+            (lamp) => {
                 lamp.classList.remove(LAMP_ACTIVE_CLASS_NAME);
                 this.isEnabled = false;
             }
@@ -21,7 +22,8 @@ class Lamps {
     }
 
     switchOnAllLamp() {
-        this.lamps.forEach((lamp) => {
+        this.lamps.forEach(
+            (lamp) => {
                 lamp.classList.add(LAMP_ACTIVE_CLASS_NAME);
                 this.isEnabled = true;
             }
@@ -35,11 +37,12 @@ class Lamps {
     }
 
     attachEvents() {
-        this.lamps.forEach(lamp => {
-            lamp.addEventListener('click', () => {
-                this.switchOnLamp(lamp);
+        this.lamps.forEach(
+            lamp => {
+                lamp.addEventListener('click', () => {
+                    this.switchOnLamp(lamp);
+                });
             });
-        });
     }
 }
 

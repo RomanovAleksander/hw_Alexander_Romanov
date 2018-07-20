@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 360);
+/******/ 	return __webpack_require__(__webpack_require__.s = 365);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9067,21 +9067,26 @@ module.exports = function (regExp, replace) {
 /* 357 */,
 /* 358 */,
 /* 359 */,
-/* 360 */
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(125);
-module.exports = __webpack_require__(361);
+module.exports = __webpack_require__(366);
 
 
 /***/ }),
-/* 361 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _lamps = __webpack_require__(362);
+var _lamps = __webpack_require__(367);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9111,7 +9116,7 @@ var u = new LampsManager(document.querySelector('#toggle_all'), [firstLamps]);
 // const f = new LampsManager(document.querySelector('#toggle_all'), [firstButtons]);
 
 /***/ }),
-/* 362 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9124,7 +9129,7 @@ exports.Lamps = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(363);
+__webpack_require__(368);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9245,7 +9250,7 @@ exports.Lamps = Lamps;
 // export {LampsBtn}
 
 /***/ }),
-/* 363 */
+/* 368 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 344);
+/******/ 	return __webpack_require__(__webpack_require__.s = 345);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9051,21 +9051,22 @@ module.exports = function (regExp, replace) {
 /* 341 */,
 /* 342 */,
 /* 343 */,
-/* 344 */
+/* 344 */,
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(125);
-module.exports = __webpack_require__(345);
+module.exports = __webpack_require__(346);
 
 
 /***/ }),
-/* 345 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(346);
+__webpack_require__(347);
 
 var redLight = document.querySelector('.red');
 var yellowLight = document.querySelector('.yellow');
@@ -9099,7 +9100,7 @@ greenLight.addEventListener('click', showGreen);
 clearAll.addEventListener('click', clearLights);
 
 /***/ }),
-/* 346 */
+/* 347 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

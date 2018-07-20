@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 356);
+/******/ 	return __webpack_require__(__webpack_require__.s = 357);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9063,48 +9063,54 @@ module.exports = function (regExp, replace) {
 /* 353 */,
 /* 354 */,
 /* 355 */,
-/* 356 */
+/* 356 */,
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(125);
-module.exports = __webpack_require__(357);
+module.exports = __webpack_require__(358);
 
 
 /***/ }),
-/* 357 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _lighter = __webpack_require__(358);
+var _lighter = __webpack_require__(359);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _bulb = __webpack_require__(361);
+
+var _garland = __webpack_require__(363);
 
 var firstLighter = new _lighter.Lighter(document.querySelector('#lighter1'));
 
-var LighterManager = function LighterManager(button, arrayOfLighters) {
-    var _this = this;
+var bulb = new _bulb.Bulb(document.querySelector('#bulb1'));
+var bulb2 = new _bulb.Bulb(document.querySelector('#bulb2'));
+var garland = new _garland.Garland(document.querySelector('#garland1'), [new _bulb.Bulb(document.querySelector('#bulb3')), new _bulb.Bulb(document.querySelector('#bulb4'))]);
 
-    _classCallCheck(this, LighterManager);
-
-    this.button = button;
-    this.lighters = arrayOfLighters;
-    this.button.addEventListener('click', function () {
-        if (_this.lighters[0].isEnabled === true) {
-            console.log('hello');
-            _this.lighters.forEach(function (light) {
-                light.style.opacity = "0";
-            });
-        }
-        console.log(_this.lighters[0].isEnabled);
-    });
-};
-
-var u = new LighterManager(document.querySelector('button'), [firstLighter]);
+// class LighterManager {
+//     constructor(button, arrayOfLighters) {
+//         this.button = button;
+//         this.lighters = arrayOfLighters;
+//         this.button.addEventListener('click', () => {
+//             if ( this.lighters[0].isEnabled === true) {
+//                 console.log('hello');
+//                 this.lighters.forEach((light) => {
+//                         light.style.opacity = "0";
+//                     }
+//                 );
+//             }
+//             console.log(this.lighters[0].isEnabled);
+//         })
+//     }
+// }
+//
+// const u = new LighterManager(document.querySelector('button'), [firstLighter]);
 
 /***/ }),
-/* 358 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9117,7 +9123,7 @@ exports.Lighter = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(359);
+__webpack_require__(360);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9167,7 +9173,135 @@ var Lighter = function () {
 exports.Lighter = Lighter;
 
 /***/ }),
-/* 359 */
+/* 360 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 361 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Bulb = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+__webpack_require__(362);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Bulb = exports.Bulb = function () {
+    function Bulb(targetEl) {
+        var _this = this;
+
+        _classCallCheck(this, Bulb);
+
+        this.target = targetEl;
+        this.control = targetEl.querySelector('.bulb__control');
+        this.lighter = targetEl.querySelector('.bulb__lighter');
+        this.isEnabled = false;
+        console.log(this);
+        this.control.addEventListener('click', function () {
+            // this.toggle.bind(this)
+            _this.toggle();
+        });
+    }
+
+    _createClass(Bulb, [{
+        key: 'switchOn',
+        value: function switchOn() {
+            this.target.classList.add('bulb_active');
+            this.isEnabled = true;
+        }
+    }, {
+        key: 'switchOff',
+        value: function switchOff() {
+            this.target.classList.remove('bulb_active');
+            this.isEnabled = false;
+        }
+    }, {
+        key: 'toggle',
+        value: function toggle() {
+            if (this.isEnabled) {
+                this.switchOff();
+            } else {
+                this.switchOn();
+            }
+        }
+    }]);
+
+    return Bulb;
+}();
+
+/***/ }),
+/* 362 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 363 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Garland = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+__webpack_require__(364);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Garland = exports.Garland = function () {
+    function Garland(targetEl, bulbs) {
+        var _this = this;
+
+        _classCallCheck(this, Garland);
+
+        this.targetEl = targetEl;
+        this.bulbs = bulbs;
+        this.control = targetEl.querySelector('.garland__control');
+        this.control.addEventListener('click', function () {
+            return _this.toggleAll();
+        });
+    }
+
+    _createClass(Garland, [{
+        key: 'toggleAll',
+        value: function toggleAll() {
+            var enabled = this.bulbs.filter(function (bulb) {
+                return bulb.isEnabled === true;
+            });
+
+            console.log(enabled);
+            if (enabled.length > 0) {
+                this.bulbs.forEach(function (bulb) {
+                    bulb.switchOff();
+                });
+            } else {
+                this.bulbs.forEach(function (bulb) {
+                    bulb.switchOn();
+                });
+            }
+        }
+    }]);
+
+    return Garland;
+}();
+
+/***/ }),
+/* 364 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
