@@ -1,5 +1,4 @@
 import './hw_14.scss';
-
 import './components/accordion/accordion';
 
 import {Accordion} from "./components/accordion/accordion";
