@@ -24,8 +24,7 @@ export class Actor extends React.Component {
 
     load() {
         Ajax.get(
-            // 'http://5b744cf8a5837400141908e4.mockapi.io/actor',
-            'http://5b744cf8a5837400141908e4.mockapi.io/tom',
+            'http://5b744cf8a5837400141908e4.mockapi.io/actor',
             (resp) => {
                 this.setState({
                     actor: resp
@@ -63,8 +62,7 @@ export class Actor extends React.Component {
 
     ChoseEmma() {
         Ajax.get(
-            // 'http://localhost:4001/emma',
-            'http://5b744cf8a5837400141908e4.mockapi.io/emma',
+            'http://localhost:4001/emma',
             (resp) => {
                 this.setState({
                     actor: resp
@@ -81,8 +79,7 @@ export class Actor extends React.Component {
 
     ChoseRyan() {
         Ajax.get(
-            // 'http://localhost:4001/ryan',
-            'http://5b744cf8a5837400141908e4.mockapi.io/ryan',
+            'http://localhost:4001/ryan',
             (resp) => {
                 this.setState({
                     actor: resp
@@ -99,8 +96,7 @@ export class Actor extends React.Component {
 
     ChoseMeryl() {
         Ajax.get(
-            // 'http://localhost:4001/meryl',
-            'http://5b744cf8a5837400141908e4.mockapi.io/meryl',
+            'http://localhost:4001/meryl',
             (resp) => {
                 this.setState({
                     actor: resp
