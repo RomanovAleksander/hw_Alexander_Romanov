@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 387);
+/******/ 	return __webpack_require__(__webpack_require__.s = 414);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9094,23 +9094,50 @@ module.exports = function (regExp, replace) {
 /* 384 */,
 /* 385 */,
 /* 386 */,
-/* 387 */
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(125);
-module.exports = __webpack_require__(388);
+module.exports = __webpack_require__(415);
 
 
 /***/ }),
-/* 388 */
+/* 415 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(389);
+__webpack_require__(416);
 
-var _comments = __webpack_require__(390);
+var _comments = __webpack_require__(417);
 
 var comments = new _comments.Comment(document.querySelector('.content'));
 //     , [
@@ -9127,13 +9154,13 @@ var comments = new _comments.Comment(document.querySelector('.content'));
 // ]);
 
 /***/ }),
-/* 389 */
+/* 416 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 390 */
+/* 417 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9146,9 +9173,9 @@ exports.Comment = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(391);
+__webpack_require__(418);
 
-var _ajax = __webpack_require__(392);
+var _ajax = __webpack_require__(419);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9167,12 +9194,24 @@ var Comment = exports.Comment = function () {
 
         this.targetEl = targetElement;
         this.itemArray = [];
-        _ajax.Ajax.get(function (obj) {
+        _ajax.Ajax.get('http://localhost:4001/comments', function (obj) {
             _this.renderList(obj);
             _this.toggle();
         }, function (xhr) {
             console.error(xhr.status);
         });
+        // Ajax.post(
+        //     'http://localhost:4001/list',
+        //     {
+        //         author: 'HELLO WORLD'
+        //     },
+        //     (resp) => {
+        //         console.log(resp);
+        //     },
+        //     (e) => {
+        //         console.error(e);
+        //     }
+        // )
     }
 
     _createClass(Comment, [{
@@ -9182,18 +9221,18 @@ var Comment = exports.Comment = function () {
             this.titleElement = document.createElement('button');
             this.listElement = document.createElement('div');
             this.text = document.createElement('p');
-            this.date = document.createElement('p');
+            this.data = document.createElement('p');
 
             this.item.classList.add(COMMENT_GENERAL_CLASS);
             this.titleElement.classList.add(COMMENT_BTN_CLASS);
             this.listElement.classList.add(COMMENT_TEXT_CLASS);
             this.text.classList.add(TEXT);
-            this.date.classList.add(DATE);
+            this.data.classList.add(DATE);
 
             this.item.appendChild(this.titleElement);
             this.item.appendChild(this.listElement);
             this.listElement.appendChild(this.text);
-            this.listElement.appendChild(this.date);
+            this.listElement.appendChild(this.data);
 
             this.itemArray.push(this.item);
         }
@@ -9207,7 +9246,7 @@ var Comment = exports.Comment = function () {
                 _this2.targetEl.appendChild(_this2.item);
                 _this2.titleElement.textContent = item.author;
                 _this2.text.textContent = item.text;
-                _this2.date.textContent = item.date;
+                _this2.data.textContent = item.data;
             });
         }
     }, {
@@ -9225,13 +9264,13 @@ var Comment = exports.Comment = function () {
 }();
 
 /***/ }),
-/* 391 */
+/* 418 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 392 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9252,10 +9291,10 @@ var Ajax = exports.Ajax = function () {
 
     _createClass(Ajax, null, [{
         key: 'get',
-        value: function get(successCallback, errorCallback) {
+        value: function get(url, successCallback, errorCallback) {
             var xhr = new XMLHttpRequest();
 
-            xhr.open('GET', 'http://localhost:4001/comments');
+            xhr.open('GET', url);
             xhr.send();
 
             xhr.onreadystatechange = function () {
@@ -9269,6 +9308,26 @@ var Ajax = exports.Ajax = function () {
                 }
             };
         }
+
+        // static post(url, data, successCallback, errorCallback) {
+        //     const xhr = new XMLHttpRequest();
+        //
+        //     xhr.open('POST', url);
+        //     xhr.setRequestHeader('Content-Type', 'application/json');
+        //     xhr.send(JSON.stringify(data));
+        //
+        //     xhr.onreadystatechange = () => {
+        //         if (xhr.readyState === 4) {
+        //             if (xhr.status === 200 || xhr.status === 304) {
+        //                 const obj = JSON.parse(xhr.response);
+        //                 successCallback(obj)
+        //             } else {
+        //                 errorCallback(xhr);
+        //             }
+        //         }
+        //     }
+        // }
+
     }]);
 
     return Ajax;

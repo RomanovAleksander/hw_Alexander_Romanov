@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 382);
+/******/ 	return __webpack_require__(__webpack_require__.s = 410);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9046,7 +9046,89 @@ module.exports = function (regExp, replace) {
 /* 336 */,
 /* 337 */,
 /* 338 */,
-/* 339 */,
+/* 339 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Ajax = exports.Ajax = function () {
+    function Ajax() {
+        _classCallCheck(this, Ajax);
+    }
+
+    _createClass(Ajax, null, [{
+        key: 'get',
+        value: function get(url, successCallback, errorCallback) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', url);
+            xhr.send();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200 || xhr.status === 304) {
+                        var list = JSON.parse(xhr.response);
+                        successCallback(list);
+                    } else {
+                        errorCallback(xhr);
+                    }
+                }
+            };
+        }
+    }, {
+        key: 'post',
+        value: function post(url, data, successCallback, errorCallback) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', url);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(data));
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200 || xhr.status === 304) {
+                        var list = JSON.parse(xhr.response);
+                        successCallback(list);
+                    } else {
+                        errorCallback(xhr);
+                    }
+                }
+            };
+        }
+    }, {
+        key: 'delete',
+        value: function _delete(url, successCallback, errorCallback) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('DELETE', url);
+            xhr.send();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200 || xhr.status === 304) {
+                        var list = JSON.parse(xhr.response);
+                        successCallback(list);
+                    } else {
+                        errorCallback(xhr);
+                    }
+                }
+            };
+        }
+    }]);
+
+    return Ajax;
+}();
+
+/***/ }),
 /* 340 */,
 /* 341 */,
 /* 342 */,
@@ -9089,23 +9171,51 @@ module.exports = function (regExp, replace) {
 /* 379 */,
 /* 380 */,
 /* 381 */,
-/* 382 */
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(125);
-module.exports = __webpack_require__(383);
+module.exports = __webpack_require__(411);
 
 
 /***/ }),
-/* 383 */
+/* 411 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(384);
+__webpack_require__(412);
 
-var _taskList = __webpack_require__(385);
+var _taskList = __webpack_require__(413);
 
 var list = new _taskList.TaskList(document.querySelector('.test'));
 
@@ -9138,14 +9248,16 @@ var list = new _taskList.TaskList(document.querySelector('.test'));
 // //     console.log('1 second passed');
 // }, 1000);
 
+// import './appasd.jsx';
+
 /***/ }),
-/* 384 */
+/* 412 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 385 */
+/* 413 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9158,7 +9270,7 @@ exports.TaskList = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ajax = __webpack_require__(386);
+var _ajax = __webpack_require__(339);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9170,7 +9282,7 @@ var TaskList = exports.TaskList = function () {
 
         this.target = target;
         this.render();
-        _ajax.Ajax.get(function (list) {
+        _ajax.Ajax.get('http://localhost:4001/list', function (list) {
             _this.renderList(list);
         }, function (xhr) {
             console.error(xhr.status);
@@ -9178,71 +9290,59 @@ var TaskList = exports.TaskList = function () {
     }
 
     _createClass(TaskList, [{
+        key: 'sendData',
+        value: function sendData() {
+            var _this2 = this;
+
+            _ajax.Ajax.post('http://localhost:4001/list', {
+                title: this.input.value
+            }, function (resp) {
+                console.log(resp);
+                _this2.renderListItem(resp);
+            }, function (e) {
+                console.error(e);
+            });
+        }
+    }, {
+        key: 'renderListItem',
+        value: function renderListItem(item) {
+            var li = document.createElement('li');
+            li.textContent = item.title;
+            this.ul.appendChild(li);
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this3 = this;
+
+            this.form = document.createElement('form');
+            this.input = document.createElement('input');
             this.ul = document.createElement('ul');
+
+            this.input.placeholder = "Enter task...";
+
+            this.form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                console.log('SUBMITTED');
+                _this3.sendData();
+            });
+
+            this.form.appendChild(this.input);
+            this.target.appendChild(this.form);
             this.target.appendChild(this.ul);
         }
     }, {
         key: 'renderList',
         value: function renderList(list) {
-            var _this2 = this;
+            var _this4 = this;
 
             list.forEach(function (item) {
-                var li = document.createElement('li');
-
-                li.textContent = item.title;
-
-                _this2.ul.appendChild(li);
+                _this4.renderListItem(item);
             });
         }
     }]);
 
     return TaskList;
-}();
-
-/***/ }),
-/* 386 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Ajax = exports.Ajax = function () {
-    function Ajax() {
-        _classCallCheck(this, Ajax);
-    }
-
-    _createClass(Ajax, null, [{
-        key: 'get',
-        value: function get(successCallback, errorCallback) {
-            var xhr = new XMLHttpRequest();
-
-            xhr.open('GET', 'http://localhost:4001/list');
-            xhr.send();
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200 || xhr.status === 304) {
-                        var list = JSON.parse(xhr.response);
-                        successCallback(list);
-                    } else {
-                        errorCallback(xhr);
-                    }
-                }
-            };
-        }
-    }]);
-
-    return Ajax;
 }();
 
 /***/ })

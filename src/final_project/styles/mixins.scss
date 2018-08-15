@@ -1,0 +1,88 @@
+@import './variables.scss';
+
+$sxs-screen: 409px;
+$xs-screen: 480px;
+$sml-screen: 585px;
+$sm-screen: 720px;
+$md-screen: 980px;
+$lg-screen: 1366px;
+$xl-screen: 1920px;
+
+$navbar-height: 92px;
+$page-nav-item-margin: 20px;
+$page-nav-link-color: white;
+$logo-font-size: 26px;
+$page-aside-background: #171717;
+$page-aside-width: 231px;
+$lato-regular: 400;
+$lato-bold: 700;
+$link-title-color: #f2d224;
+$page-aside-link: #969696;
+$page-text-white: white;
+$page-text-opacity: 0.7;
+$page-padding-left: 12px;
+
+@mixin sxs-mobile {
+  @media (max-width: #{$sxs-screen - 0.1px}) {
+    @content;
+  }
+}
+
+@mixin xs-mobile {
+  @media (max-width: #{$xs-screen - 0.1px}) {
+    @content;
+  }
+}
+
+@mixin s-mobile {
+  @media (max-width: #{$sml-screen - 0.1px}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: #{$sm-screen - 0.1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$md-screen - 0.1px}) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (max-width: #{$lg-screen - 0.1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: #{$xl-screen - 0.1px}) {
+    @content;
+  }
+}
+
+@mixin desktop-lg {
+  @media (min-width: #{$xl-screen - 0.1px}) {
+    @content;
+  }
+}
+
+@mixin flexCenterVertical {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin buttonDeactivate {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}

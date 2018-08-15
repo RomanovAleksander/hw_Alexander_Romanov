@@ -1,0 +1,149 @@
+@import './mixins.scss';
+
+.page-content {
+  background-image: url(http://drive.google.com/uc?export=view&id=1Sodou3hNR5X104z9UmpnmKi2W3Y9WbF9);
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  min-height: 932px;
+  object-fit: contain;
+  box-shadow: -115px 142px 65px 0 rgba(0, 0, 0, 0.5);
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-between;
+  margin-top: -41px;
+  overflow: hidden;
+  @include tablet {
+    background-image: none;
+  }
+  @include s-mobile {
+    margin-top: 0;
+  }
+}
+
+.page-actor-info {
+  width: 680px;
+  margin-top: 41px;
+  min-height: 932px;
+  @include flexColumn;
+  @include tablet {
+    max-width: 624px !important;
+    margin-top: 41px !important;
+    margin: 0 auto;
+  }
+  @include s-mobile {
+    margin-top: 54px !important;
+  }
+  &__position {
+    display: flex;
+    justify-content: flex-end;
+    @include mobile {
+      display: none;
+    }
+  }
+  &__icon {
+    width: 73px;
+    min-height: 33px;
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 3px 3px 13px 0 rgba(15, 15, 15, 0.5);
+    margin-right: 75px;
+    margin-top: 26px;
+    font-size: 12px;
+    font-weight: 400;
+    color: $page-text-white;
+    text-align: center;
+    padding-top: 7px;
+  }
+  &__name-photo {
+    width: 100%;
+    min-height: 108px;
+    display: flex;
+    @include xs-mobile {
+      min-height: 93px;
+    }
+    @include sxs-mobile {
+      min-height: 70px;
+    }
+  }
+  &__name {
+    max-width: 80%;
+    min-height: 100%;
+    font-size: 90px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: $page-text-white;
+    @include s-mobile {
+      font-size: 80px;
+    }
+    @include xs-mobile {
+      font-size: 63px;
+    }
+    @include sxs-mobile {
+      font-size: 48px;
+    }
+  }
+  &__photo {
+    display: none;
+    @include tablet {
+      background-image: url(http://drive.google.com/uc?export=view&id=1JTy5DEhv8A3tiSAO_Z2pGMJimUg6limF);
+      background-position: left;
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 17%;
+      display: flex;
+    }
+    @include s-mobile {
+      display: none;
+    }
+  }
+  &__career {
+    max-width: 300px;
+    min-height: 60px;
+    font-size: 10px;
+    font-weight: $lato-regular;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 2px;
+    color: $page-text-white;
+    padding-left: 12px;
+    @include flexCenterVertical;
+    opacity: $page-text-opacity;
+  }
+  &__about {
+    margin-left: $page-padding-left;
+    max-width: 560px;
+    min-height: 90px;
+    font-size: 14px;
+    font-weight: $lato-regular;
+    line-height: 1.29;
+    letter-spacing: 1.2px;
+    color: $page-text-white;
+    opacity: $page-text-opacity;
+  }
+  &__was-born {
+    padding-left: $page-padding-left;
+    max-width: 402px;
+    min-height: 72px;
+    @include flexCenterVertical;
+  }
+  &__was-born-icon path {
+    fill: #ffcd47;
+    opacity: 0.64;
+    transition: fill 0.3s;
+  }
+  &__was-born-text {
+    margin-left: 5px;
+    padding-bottom: 2px;
+    opacity: $page-text-opacity;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: $page-text-white;
+  }
+}

@@ -1,0 +1,56 @@
+@import './variables.scss';
+@import './mixins.scss';
+
+.drop-down {
+  display: none;
+  @include mobile {
+    overflow: hidden;
+    display: block;
+  }
+  &__btn {
+    @include buttonDeactivate;
+    font-size: 36px;
+    letter-spacing: 3px;
+    color: white;
+    margin-right: 20px;
+    &::after {
+      content: '\2630';
+      transition-duration: 0.5s;
+    }
+  }
+  &__content {
+    transition: all 1s ease-out;
+    transition-duration: .5s;
+    transition-property: all;
+    transform-origin: top;
+    background-color: #242222;
+    margin-left: -74px;
+    position: absolute;
+    min-width: 147px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 19px;
+    height: 0;
+    overflow: hidden;
+    @include s-mobile {
+      margin-top: 0 !important;;
+    }
+  }
+}
+
+.drop-down_active {
+  .drop-down {
+    &__content {
+      height: 373px;
+      transition-duration: .5s;
+    }
+    &__btn {
+      &::after {
+        color: white;
+        content: '\2716';
+        transition-duration: 0.5s;
+        transform: skew(45deg);
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+@import './variables.scss';
+@import './mixins.scss';
+
+.page {
+  margin: 0 auto;
+  background-image: $background-orange;
+  max-width: 1520px;
+  min-height: 1024px;
+  z-index: 0;
+  overflow: hidden;
+  @include s-mobile {
+    min-height: auto;
+  }
+}
+
+.page-header {
+  margin: 0 auto;
+  width: 100%;
+  height: $navbar-height;
+  background-color: $background-orange-hidden;
+  display: flex;
+  justify-content: space-between;
+  @include mobile {
+    align-items: center;
+    background-color: #242222;
+  }
+  @include s-mobile {
+    position: fixed;
+    height: 53px;
+    z-index: 1;
+  }
+}
+
+.page-nav {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  @include tablet {
+    margin: 0 auto;
+  }
+  @include mobile {
+    display: none;
+  }
+  &__menu {
+    margin-top: 40px;
+    margin-right: 65px;
+    min-width: 650px;
+    display: flex;
+    justify-content: flex-end;
+    @include tablet {
+      margin-top: 40px !important;
+      margin: 0 auto;
+      min-width: 614px;
+    }
+  }
+  &__item {
+    display: flex;
+  }
+  &__link {
+    color: white;
+    font-size: 13px;
+    letter-spacing: 0.9px;
+    font-weight: $lato-regular;
+  }
+  &__link-title {
+    margin: 10px 18px 0 5px;
+    height: 42px;
+    @include flexCenterVertical;
+    transition: border-bottom-color;
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    transition-duration: .2s;
+  }
+  &__link-title:hover {
+    border-bottom: 1px solid white;
+  }
+}

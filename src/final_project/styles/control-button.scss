@@ -1,0 +1,170 @@
+@import './variables.scss';
+@import './mixins.scss';
+
+.control-block {
+  animation: anim 3s;
+  animation-duration: 3s;
+  position: fixed;
+  top: -90px;
+  left: 231px;
+  z-index: 3;
+  height: 100px;
+  width: 144px;
+  transition-duration: 1s;
+  &__controls {
+    background: transparent;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__btn {
+    width: 100%;
+    height: 25%;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 700;
+    transition-duration: 0.5s;
+    @include buttonDeactivate;
+    color: white;
+  }
+  &__btn:hover {
+    color: $link-title-color;
+  }
+  &__btn:focus {
+    color: $link-title-color;
+  }
+  &__switcher {
+    @include buttonDeactivate;
+    cursor: pointer;
+    height: 10%;
+    width: 100%;
+    text-align: center;
+    color: white;
+  }
+  &__switcher:after {
+    content: "\2605";
+    transition-duration: 0.5s;
+  }
+  &__switcher:hover {
+    color: $link-title-color;
+  }
+}
+
+.page_emma {
+  background-image: $background-pink;
+  .page-content {
+    background-image: url(http://drive.google.com/uc?export=view&id=1Z6mOtBdLApESV1rPWlkQ9JPcuVMByGvz);
+    @include tablet {
+      background-image: none;
+    }
+    @include s-mobile {
+      margin-top: 0;
+    }
+  }
+  .page-actor-info {
+    &__photo {
+      @include tablet {
+        background-image: url(http://drive.google.com/uc?export=view&id=1Z6mOtBdLApESV1rPWlkQ9JPcuVMByGvz);
+      }
+      @include s-mobile {
+        display: none;
+      }
+    }
+    &__was-born-icon path {
+      fill: white;
+    }
+  }
+  .page-slider {
+    display: none;
+  }
+  .page-slider-static {
+    display: block;
+  }
+}
+
+.page_ryan {
+  background-image: $background-blue;
+  .page-content {
+    background-image: url(http://drive.google.com/uc?export=view&id=1F10gx3rDI6Ts8xsOfi7VWGs_PIcSsxQW);
+    @include tablet {
+      background-image: none;
+    }
+    @include s-mobile {
+      margin-top: 0;
+    }
+  }
+  .page-actor-info {
+    &__photo {
+      @include tablet {
+        background-image: url(http://drive.google.com/uc?export=view&id=1F10gx3rDI6Ts8xsOfi7VWGs_PIcSsxQW);
+      }
+      @include s-mobile {
+        display: none;
+      }
+    }
+    &__was-born-icon path {
+      fill: white;
+    }
+  }
+  .page-slider {
+    display: none;
+  }
+  .page-slider-static {
+    display: block;
+  }
+}
+
+.page_meryl {
+  background-image: $background-purple;
+  .page-content {
+    background-image: url(http://drive.google.com/uc?export=view&id=1PneY3ij9_7Q3yyfZ4amoqYLta3hJPqzr);
+    @include tablet {
+      background-image: none;
+    }
+    @include s-mobile {
+      margin-top: 0;
+    }
+  }
+  .page-actor-info {
+    &__photo {
+      @include tablet {
+        background-image: url(http://drive.google.com/uc?export=view&id=1PneY3ij9_7Q3yyfZ4amoqYLta3hJPqzr);
+      }
+      @include s-mobile {
+        display: none;
+      }
+    }
+    &__was-born-icon path {
+      fill: white;
+    }
+  }
+  .page-slider {
+    display: none;
+  }
+  .page-slider-static {
+    display: block;
+  }
+}
+
+@keyframes anim {
+  from {
+    top: -300px;
+  }
+  to {
+    top: -95px;
+  }
+}
+
+.control-block_active {
+  transition-duration: 1s;
+  top: 0;
+  .control-block {
+    &__switcher {
+      color: $link-title-color;
+    }
+  }
+}

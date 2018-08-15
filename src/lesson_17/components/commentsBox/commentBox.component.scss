@@ -1,0 +1,19 @@
+//#app {
+//  text-align: center;
+//  margin-top: 50px;
+//}
+
+.comments-box {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 2px 10px 0 #d7d7d7;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+  &__comments {
+
+  }
+}

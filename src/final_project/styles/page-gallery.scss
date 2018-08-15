@@ -1,0 +1,112 @@
+@import './mixins.scss';
+
+.page-gallery {
+  width: 609px;
+  height: 243px;
+  transition: all 1s ease-out;
+  transition-duration: .5s;
+  transition-property: all;
+  transform-origin: top;
+  @include s-mobile {
+    width: 100%;
+  }
+  &__header {
+    padding-bottom: 18px;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  &__caption {
+    padding-left: 16px;
+    width: 145px;
+    height: 29px;
+    display: flex;
+  }
+  &__name {
+    height: 100%;
+    width: 64%;
+    font-size: 24px;
+    font-weight: $lato-regular;
+    color: $page-text-white;
+  }
+  &__number {
+    height: 100%;
+    width: 38%;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    font-size: 14px;
+    font-weight: $lato-regular;
+    color: $page-text-white;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 5px;
+  }
+  &__btn {
+    @include buttonDeactivate;
+    width: 35px;
+    height: 35px;
+    font-size: 36px;
+    letter-spacing: 3px;
+    color: white;
+    margin-right: 20px;
+    &::after {
+      content: '+';
+      transition-duration: 0.5s;
+    }
+  }
+  &__photos {
+    padding-left: 13px;
+    min-width: 193px;
+    height: 130px;
+    display: flex;
+    flex-wrap: wrap;
+    @include s-mobile {
+      padding-left: 3px;
+      padding-right: 3px;
+      justify-content: center;
+    }
+  }
+  &__photos > img {
+    max-width: 190px;
+    max-height: 130px;
+    margin: 3px;
+  }
+}
+
+.page-content_active {
+  .page-gallery {
+    transition-duration: .5s;
+    height: 468px;
+    &__btn {
+      &::after {
+        color: white;
+        content: '-';
+        transition-duration: 0.5s;
+        transform: skew(45deg);
+      }
+    }
+    @include mobile {
+      height: 409px;
+    }
+    @include s-mobile {
+      height: 732px;
+    }
+    @include sxs-mobile {
+      height: 1253px;
+    }
+  }
+  .page-aside {
+    @include tablet {
+      transition-duration: .5s;
+      //height: 1141px;
+    }
+    @include mobile {
+      //height: 1082px;
+    }
+    //@include s-mobile {
+    //  height: 1405px;
+    //}
+  }
+}
