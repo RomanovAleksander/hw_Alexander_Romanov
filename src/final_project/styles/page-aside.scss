@@ -102,7 +102,7 @@
 
   &__menu {
     width: 100%;
-    height: 100%;
+    min-height: 219px;
     @include flexColumn;
     justify-content: center;
     align-items: flex-start;
@@ -174,7 +174,7 @@
     transition-duration: .5s;
     transition-property: all;
     width: 231px;
-    height: 49px;
+    min-height: 49px;
     background-color: #0d0d0d;
     @include flexCenterVertical;
     justify-content: space-between;
