@@ -27,7 +27,7 @@ export class Actor extends React.Component {
     componentDidMount() {
         this.load();
         let btn = document.querySelector(".page-gallery__btn");
-        let item = document.querySelector(".page-content.components");
+        let item = document.querySelector(".page-content");
         btn.addEventListener('click', () => {
             item.classList.toggle("page-content_active")
         });
