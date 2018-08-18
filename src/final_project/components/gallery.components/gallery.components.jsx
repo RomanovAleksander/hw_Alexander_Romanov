@@ -1,7 +1,7 @@
 // import * as React from 'react';
 // import {Ajax} from "../utils/ajax";
 //
-// import '../../styles/page-gallery.scss';
+// import '../../styles/page-gallery.components.scss';
 //
 // export class Gallery extends React.Component {
 //     constructor() {
@@ -27,7 +27,7 @@
 //
 //     componentDidMount() {
 //         let btn = document.querySelector(".page-gallery__btn");
-//         let item = document.querySelector(".page-content");
+//         let item = document.querySelector(".page-content.components");
 //         btn.addEventListener('click', () => {
 //             item.classList.toggle("page-content_active")
 //         });
@@ -36,7 +36,7 @@
 //
 //     render() {
 //         return (
-//             <div className="page-gallery">
+//             <div className="page-gallery.components">
 //                 <div className="page-gallery__header">
 //                     <div className="page-gallery__caption">
 //                         <div className="page-gallery__name">Photos</div>
@@ -55,7 +55,7 @@
 //
 //     render() {
 //         return (
-//             <div className="page-gallery">
+//             <div className="page-gallery.components">
 //                 <div className="page-gallery__header">
 //                     <div className="page-gallery__caption">
 //                         <div className="page-gallery__name">Photos</div>

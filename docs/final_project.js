@@ -29381,7 +29381,7 @@ var Actor = exports.Actor = function (_React$Component) {
         value: function componentDidMount() {
             this.load();
             var btn = document.querySelector(".page-gallery__btn");
-            var item = document.querySelector(".page-content");
+            var item = document.querySelector(".page-content.components");
             btn.addEventListener('click', function () {
                 item.classList.toggle("page-content_active");
             });
@@ -29664,7 +29664,7 @@ var Actor = exports.Actor = function (_React$Component) {
 
             return React.createElement(
                 'div',
-                { className: 'page-actor-info' },
+                { className: 'page-actor-info.components' },
                 controls,
                 aboutActor,
                 React.createElement(
@@ -29776,7 +29776,7 @@ var Actor = exports.Actor = function (_React$Component) {
                 ),
                 React.createElement(
                     'div',
-                    { className: 'page-gallery' },
+                    { className: 'page-gallery.components' },
                     React.createElement(
                         'div',
                         { className: 'page-gallery__header' },
@@ -30019,7 +30019,7 @@ __webpack_require__(353);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-// import '../styles/header.scss';
+// import '../styles/header.components.scss';
 function Page() {
     return React.createElement(
         'div',
@@ -30055,7 +30055,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // import '../../styles/header.scss';
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // import '../../styles/header.components.scss';
 
 
 var Header = exports.Header = function (_React$Component) {
@@ -30081,7 +30081,7 @@ var Header = exports.Header = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 "header",
-                { className: "page-header" },
+                { className: "page-header.components" },
                 React.createElement(
                     "div",
                     { className: "page-aside__logo" },
@@ -30297,7 +30297,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // import '../../styles/page-content.scss';
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // import '../../styles/page-content.components.scss';
 
 
 function PageAside() {
@@ -30385,7 +30385,7 @@ function PageAside() {
             { className: "page-aside__account-block" },
             React.createElement(
                 "div",
-                { className: "page-aside__account-block-header" },
+                { className: "page-aside__account-block-header.components" },
                 React.createElement(
                     "a",
                     { href: "" },
@@ -30513,7 +30513,7 @@ var PageContent = exports.PageContent = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 "div",
-                { className: "page-content" },
+                { className: "page-content.components" },
                 React.createElement(PageAside, null),
                 React.createElement(_actorInfo.Actor, null)
             );
@@ -31899,7 +31899,7 @@ var index = (function () {
 // import * as React from 'react';
 // import {Ajax} from "../utils/ajax";
 //
-// import '../../styles/page-gallery.scss';
+// import '../../styles/page-gallery.components.scss';
 //
 // export class Gallery extends React.Component {
 //     constructor() {
@@ -31925,7 +31925,7 @@ var index = (function () {
 //
 //     componentDidMount() {
 //         let btn = document.querySelector(".page-gallery__btn");
-//         let item = document.querySelector(".page-content");
+//         let item = document.querySelector(".page-content.components");
 //         btn.addEventListener('click', () => {
 //             item.classList.toggle("page-content_active")
 //         });
@@ -31934,7 +31934,7 @@ var index = (function () {
 //
 //     render() {
 //         return (
-//             <div className="page-gallery">
+//             <div className="page-gallery.components">
 //                 <div className="page-gallery__header">
 //                     <div className="page-gallery__caption">
 //                         <div className="page-gallery__name">Photos</div>
@@ -31953,7 +31953,7 @@ var index = (function () {
 //
 //     render() {
 //         return (
-//             <div className="page-gallery">
+//             <div className="page-gallery.components">
 //                 <div className="page-gallery__header">
 //                     <div className="page-gallery__caption">
 //                         <div className="page-gallery__name">Photos</div>

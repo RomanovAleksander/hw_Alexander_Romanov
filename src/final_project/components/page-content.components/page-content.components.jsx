@@ -1,6 +1,6 @@
-// import '../../styles/page-content.scss';
+// import '../../styles/page-content.components.scss';
 import * as React from 'react';
-import {Actor} from "../actor-info/actor-info.jsx";
+import {Actor} from "../actor-info.components/actor-info.jsx";
 import {Ajax} from "../utils/ajax";
 
 function PageAside() {

@@ -29523,8 +29523,8 @@ var Header = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 'header',
-                { className: 'page-header' },
-                'Here will be page header'
+                { className: 'page-header.components' },
+                'Here will be page header.components'
             );
         }
     }]);
@@ -29571,7 +29571,7 @@ var Content = function (_React$Component2) {
 
             return React.createElement(
                 'main',
-                { className: 'page-content' },
+                { className: 'page-content.components' },
                 listItemsElements
             );
         }

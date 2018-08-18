@@ -72,7 +72,7 @@
 //     }
 //
 //     render() {
-//         this.header = document.createElement('div');
+//         this.header.components = document.createElement('div');
 //         this.caption = document.createElement('div');
 //         this.dots = document.createElement('div');
 //         this.caption = document.createElement('div');

@@ -1,4 +1,4 @@
-// import '../../styles/header.scss';
+// import '../../styles/header.components.scss';
 import * as React from 'react';
 
 export class Header extends React.Component {

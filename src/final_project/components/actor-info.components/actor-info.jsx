@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Ajax} from '../utils/ajax.js'
 import {ActorInfoItem} from './actor-infoItem.jsx';
-import {ControlButton} from "../controlbuttons/controlButton.components.jsx";
+import {ControlButton} from "../controlbuttons.components/controlButton.components.jsx";
 import {SliderStatic} from '../slider/sliderStatic.jsx'
 import ResizeObserver from 'resize-observer-polyfill';
 
@@ -27,7 +27,7 @@ export class Actor extends React.Component {
     componentDidMount() {
         this.load();
         let btn = document.querySelector(".page-gallery__btn");
-        let item = document.querySelector(".page-content");
+        let item = document.querySelector(".page-content.components");
         btn.addEventListener('click', () => {
             item.classList.toggle("page-content_active")
         });

@@ -43,7 +43,7 @@ const list = new TaskList(document.querySelector('.test'));
 // const test = document.querySelector('.test');
 //
 // // function generateTemplate(name, age) {
-// //     return `<h1 class="header">${name} ${age}</h1>`
+// //     return `<h1 class="header.components">${name} ${age}</h1>`
 // // }
 // //
 // // test.innerHTML = generateTemplate('Ilya', 26);
