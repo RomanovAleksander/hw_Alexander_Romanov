@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 424);
+/******/ 	return __webpack_require__(__webpack_require__.s = 423);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -29464,27 +29464,26 @@ module.exports = camelize;
 /* 420 */,
 /* 421 */,
 /* 422 */,
-/* 423 */,
-/* 424 */
+/* 423 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(125);
-module.exports = __webpack_require__(425);
+module.exports = __webpack_require__(424);
 
 
 /***/ }),
-/* 425 */
+/* 424 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(426);
+__webpack_require__(425);
 
-__webpack_require__(431);
+__webpack_require__(430);
 
 /***/ }),
-/* 426 */
+/* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29498,9 +29497,9 @@ var React = _interopRequireWildcard(_react);
 
 var _reactDom = __webpack_require__(343);
 
-var _commentsBoxComponent = __webpack_require__(427);
+var _commentsBoxComponent = __webpack_require__(426);
 
-__webpack_require__(430);
+__webpack_require__(429);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -29532,7 +29531,7 @@ var App = function (_React$Component) {
 (0, _reactDom.render)(React.createElement(App, null), document.querySelector('#app'));
 
 /***/ }),
-/* 427 */
+/* 426 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29551,9 +29550,9 @@ var React = _interopRequireWildcard(_react);
 
 var _ajax = __webpack_require__(339);
 
-var _commentsBoxItemComponent = __webpack_require__(428);
+var _commentsBoxItemComponent = __webpack_require__(427);
 
-var _commnetBoxFormComponent = __webpack_require__(429);
+var _commnetBoxFormComponent = __webpack_require__(428);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -29669,7 +29668,7 @@ var CommentsBox = exports.CommentsBox = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 428 */
+/* 427 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29742,7 +29741,7 @@ var CommentsBoxItem = exports.CommentsBoxItem = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 429 */
+/* 428 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29850,13 +29849,13 @@ var CommentBoxForm = exports.CommentBoxForm = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 430 */
+/* 429 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 431 */
+/* 430 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

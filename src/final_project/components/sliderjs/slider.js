@@ -41,9 +41,9 @@
 //             width = lastWidth;
 //
 //             if (Width.onElementHeightChangeTimer)
-//                 clearTimeout(Width.onElementHeightChangeTimer);
+//                 clearTimeout(Width.onElementWidthChangeTimer);
 //
-//             Width.onElementHeightChangeTimer = setTimeout(run, 200);
+//             Width.onElementWidthChangeTimer = setTimeout(run, 200);
 //         })();
 //     }
 //

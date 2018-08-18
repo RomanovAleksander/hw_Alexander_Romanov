@@ -36,6 +36,7 @@
     "node-sass": "^4.8.3",
     "normalize-css": "^2.3.1",
     "normalize.less": "^1.0.0",
+    "resize-observer-polyfill": "^1.5.0",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.18.2",
     "uglify-js": "^2.8.21",
@@ -46,6 +47,7 @@
     "babel-polyfill": "^6.26.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
+    "lodash.range": "^3.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   }

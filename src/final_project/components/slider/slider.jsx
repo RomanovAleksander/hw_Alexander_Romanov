@@ -1,9 +1,4 @@
 import * as React from 'react';
-// import {render} from 'react-dom';
-// import {Slide} from './slide.jsx'
-// // import Dots from './dots'
-// import '../../styles/slider.scss';
-// import {Ajax} from "../utils/ajax";
 
 export class SliderRender extends React.Component {
     render() {

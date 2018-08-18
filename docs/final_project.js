@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 432);
+/******/ 	return __webpack_require__(__webpack_require__.s = 431);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -29331,15 +29331,17 @@ var React = _interopRequireWildcard(_react);
 
 var _ajax = __webpack_require__(354);
 
-var _slider = __webpack_require__(438);
+var _actorInfoItem = __webpack_require__(437);
 
-var _galleryComponents = __webpack_require__(355);
+var _controlButtonComponents = __webpack_require__(438);
 
-var _actorInfoItem = __webpack_require__(439);
+var _sliderStatic = __webpack_require__(439);
 
-var _controlButtonComponents = __webpack_require__(440);
+var _resizeObserverPolyfill = __webpack_require__(440);
 
-var _sliderStatic = __webpack_require__(441);
+var _resizeObserverPolyfill2 = _interopRequireDefault(_resizeObserverPolyfill);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -29348,9 +29350,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import '../../styles/page-content.scss'
-// import '../../styles/header.scss'
 
+var timer = void 0;
 
 var Actor = exports.Actor = function (_React$Component) {
     _inherits(Actor, _React$Component);
@@ -29361,9 +29362,17 @@ var Actor = exports.Actor = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Actor.__proto__ || Object.getPrototypeOf(Actor)).call(this));
 
         _this.state = {
-            actor: []
-            // slider: []
+            actor: [],
+            actorImgs: [],
+            slider: [],
+            activeIndex: 1,
+            left: 0,
+            sliderWidth: 0
         };
+        _this.nextSlide = _this.nextSlide.bind(_this);
+        _this.clickIndicator = _this.clickIndicator.bind(_this);
+        _this.onElementWidthChange = _this.onElementWidthChange.bind(_this);
+        _this.autoSlider = _this.autoSlider.bind(_this);
         return _this;
     }
 
@@ -29371,31 +29380,115 @@ var Actor = exports.Actor = function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.load();
+            var btn = document.querySelector(".page-gallery__btn");
+            var item = document.querySelector(".page-content");
+            btn.addEventListener('click', function () {
+                item.classList.toggle("page-content_active");
+            });
+            this.onElementWidthChange();
+            this.autoSlider();
+        }
+    }, {
+        key: 'onElementWidthChange',
+        value: function onElementWidthChange() {
+            var _this2 = this;
+
+            var ro = new _resizeObserverPolyfill2.default(function (entries) {
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
+
+                try {
+                    for (var _iterator = entries[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        var entry = _step.value;
+                        var width = entry.contentRect.width;
+
+                        _this2.setState({
+                            sliderWidth: width
+                        });
+                    }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
+                    }
+                }
+            });
+
+            ro.observe(document.querySelector('.page-slider'));
         }
     }, {
         key: 'load',
         value: function load() {
-            var _this2 = this;
+            var _this3 = this;
 
-            _ajax.Ajax.get('http://localhost:4001/tom', function (resp) {
-                _this2.setState({
+            _ajax.Ajax.get(
+            // 'http://localhost:4001/tom',
+            'http://5b744cf8a5837400141908e4.mockapi.io/tom', function (resp) {
+                _this3.setState({
                     actor: resp
                 });
-                console.log(_this2.state.actor);
             }, function (e) {
                 console.log(e);
             });
-            // Ajax.get('http://localhost:4001/tomSlider',
-            //     (resp) => {
-            //         this.setState({
-            //             slider: resp
-            //         });
-            //         console.log(this.state.slider);
-            //     },
-            //     (e) => {
-            //         console.log(e);
-            //     }
-            // );
+            _ajax.Ajax.get('http://5b744cf8a5837400141908e4.mockapi.io/tomImgs', function (resp) {
+                _this3.setState({
+                    actorImgs: resp
+                });
+            }, function (e) {
+                console.log(e);
+            });
+            _ajax.Ajax.get('http://5b744cf8a5837400141908e4.mockapi.io/tomSlider', function (resp) {
+                _this3.setState({
+                    slider: resp
+                });
+                console.log(_this3.state);
+            }, function (e) {
+                console.log(e);
+            });
+        }
+    }, {
+        key: 'nextSlide',
+        value: function nextSlide() {
+            this.setState({
+                activeIndex: this.state.activeIndex + 1,
+                left: this.state.left - this.state.sliderWidth
+            });
+            if (this.state.activeIndex === this.state.slider.length + 1) {
+                this.setState({
+                    activeIndex: this.state.activeIndex - this.state.slider.length,
+                    left: 0
+                });
+            }
+            this.autoSlider();
+        }
+    }, {
+        key: 'clickIndicator',
+        value: function clickIndicator(e) {
+            this.setState({
+                activeIndex: parseInt(e.target.textContent),
+                left: this.state.sliderWidth - parseInt(e.target.textContent) * this.state.sliderWidth
+            });
+            clearInterval(timer);
+            this.autoSlider();
+        }
+    }, {
+        key: 'autoSlider',
+        value: function autoSlider() {
+            var _this4 = this;
+
+            clearInterval(timer);
+            timer = setInterval(function () {
+                _this4.nextSlide();
+            }, 8000);
         }
     }, {
         key: 'ChoseTom',
@@ -29414,13 +29507,29 @@ var Actor = exports.Actor = function (_React$Component) {
     }, {
         key: 'ChoseEmma',
         value: function ChoseEmma() {
-            var _this3 = this;
+            var _this5 = this;
 
-            _ajax.Ajax.get('http://localhost:4001/emma', function (resp) {
-                _this3.setState({
+            _ajax.Ajax.get(
+            // 'http://localhost:4001/emma',
+            'http://5b744cf8a5837400141908e4.mockapi.io/emma', function (resp) {
+                _this5.setState({
                     actor: resp
                 });
-                console.log(_this3.state.actor);
+            }, function (e) {
+                console.log(e);
+            });
+            _ajax.Ajax.get('http://5b744cf8a5837400141908e4.mockapi.io/emmaImgs', function (resp) {
+                _this5.setState({
+                    actorImgs: resp
+                });
+            }, function (e) {
+                console.log(e);
+            });
+            _ajax.Ajax.get('http://5b744cf8a5837400141908e4.mockapi.io/emmaSlider', function (resp) {
+                _this5.setState({
+                    slider: resp
+                });
+                console.log(_this5.state);
             }, function (e) {
                 console.log(e);
             });
@@ -29430,13 +29539,29 @@ var Actor = exports.Actor = function (_React$Component) {
     }, {
         key: 'ChoseRyan',
         value: function ChoseRyan() {
-            var _this4 = this;
+            var _this6 = this;
 
-            _ajax.Ajax.get('http://localhost:4001/ryan', function (resp) {
-                _this4.setState({
+            _ajax.Ajax.get(
+            // 'http://localhost:4001/ryan',
+            'http://5b744cf8a5837400141908e4.mockapi.io/ryan', function (resp) {
+                _this6.setState({
                     actor: resp
                 });
-                console.log(_this4.state.actor);
+            }, function (e) {
+                console.log(e);
+            });
+            _ajax.Ajax.get('http://5b744cf8a5837400141908e4.mockapi.io/ryanImgs', function (resp) {
+                _this6.setState({
+                    actorImgs: resp
+                });
+            }, function (e) {
+                console.log(e);
+            });
+            _ajax.Ajax.get('http://5b744cf8a5837400141908e4.mockapi.io/ryanSlider', function (resp) {
+                _this6.setState({
+                    slider: resp
+                });
+                console.log(_this6.state);
             }, function (e) {
                 console.log(e);
             });
@@ -29446,13 +29571,29 @@ var Actor = exports.Actor = function (_React$Component) {
     }, {
         key: 'ChoseMeryl',
         value: function ChoseMeryl() {
-            var _this5 = this;
+            var _this7 = this;
 
-            _ajax.Ajax.get('http://localhost:4001/meryl', function (resp) {
-                _this5.setState({
+            _ajax.Ajax.get(
+            // 'http://localhost:4001/meryl',
+            'http://5b744cf8a5837400141908e4.mockapi.io/meryl', function (resp) {
+                _this7.setState({
                     actor: resp
                 });
-                console.log(_this5.state.actor);
+            }, function (e) {
+                console.log(e);
+            });
+            _ajax.Ajax.get('http://5b744cf8a5837400141908e4.mockapi.io/merylImgs', function (resp) {
+                _this7.setState({
+                    actorImgs: resp
+                });
+            }, function (e) {
+                console.log(e);
+            });
+            _ajax.Ajax.get('http://5b744cf8a5837400141908e4.mockapi.io/merylSlider', function (resp) {
+                _this7.setState({
+                    slider: resp
+                });
+                console.log(_this7.state);
             }, function (e) {
                 console.log(e);
             });
@@ -29462,9 +29603,12 @@ var Actor = exports.Actor = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var style = {
+                left: this.state.left
+            };
             var aboutActor = [];
-            var imgActor = [];
-            var sliderStatic = [];
+            // const imgActor = [];
+            // const sliderStatic = [];
             var controls = React.createElement(_controlButtonComponents.ControlButton, {
                 onChoseT: this.ChoseTom.bind(this),
                 onChoseE: this.ChoseEmma.bind(this),
@@ -29483,49 +29627,184 @@ var Actor = exports.Actor = function (_React$Component) {
                 aboutActor.push(div);
             });
 
-            this.state.actor.forEach(function (item) {
-                var div = React.createElement(_sliderStatic.SliderStatic, {
-                    key: item.id,
-                    slideImg1: item.slideImg1,
-                    slideName1: item.slideName1,
-                    slideDate1: item.slideDate1,
-                    slideImg2: item.slideImg2,
-                    slideName2: item.slideName2,
-                    slideDate2: item.slideDate2,
-                    slideImg3: item.slideImg3,
-                    slideName3: item.slideName3,
-                    slideDate3: item.slideDate3
-                });
+            // this.state.actor.forEach((item) => {
+            //     const div = <SliderStatic
+            //         key={item.id}
+            //         slideImg1={item.slideImg1}
+            //         slideName1={item.slideName1}
+            //         slideDate1={item.slideDate1}
+            //         slideImg2={item.slideImg2}
+            //         slideName2={item.slideName2}
+            //         slideDate2={item.slideDate2}
+            //         slideImg3={item.slideImg3}
+            //         slideName3={item.slideName3}
+            //         slideDate3={item.slideDate3}
+            //     />;
+            //
+            //     sliderStatic.push(div);
+            // });
 
-                sliderStatic.push(div);
-            });
-
-            this.state.actor.forEach(function (item) {
-                var div = React.createElement(_galleryComponents.Gallery, {
-                    key: item.id,
-                    quantity: item.quantity,
-                    img1: item.img1,
-                    img2: item.img2,
-                    img3: item.img3,
-                    img4: item.img4,
-                    img5: item.img5,
-                    img6: item.img6,
-                    img7: item.img7,
-                    img8: item.img8,
-                    img9: item.img9
-                });
-
-                imgActor.push(div);
-            });
+            // this.state.actor.forEach((item) => {
+            //     const div = <Gallery
+            //         key={item.id}
+            //         quantity={item.quantity}
+            //         img1={item.img1}
+            //         img2={item.img2}
+            //         img3={item.img3}
+            //         img4={item.img4}
+            //         img5={item.img5}
+            //         img6={item.img6}
+            //         img7={item.img7}
+            //         img8={item.img8}
+            //         img9={item.img9}
+            //     />;
+            //
+            //     imgActor.push(div);
+            // });
 
             return React.createElement(
                 'div',
                 { className: 'page-actor-info' },
                 controls,
                 aboutActor,
-                React.createElement(_slider.SliderRender, null),
-                sliderStatic,
-                imgActor
+                React.createElement(
+                    'div',
+                    { className: 'page-slider' },
+                    React.createElement(
+                        'div',
+                        { className: 'page-slider__header' },
+                        React.createElement(
+                            'div',
+                            { className: 'page-slider__caption' },
+                            'Known for'
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'page-slider__dots' },
+                            this.state.slider.map(function (item, index) {
+                                return React.createElement(
+                                    'div',
+                                    { className: index + 1 === this.state.activeIndex ? 'active' : '',
+                                        onClick: this.clickIndicator,
+                                        key: index
+                                    },
+                                    index + 1
+                                );
+                            }, this)
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'page-slider__slides-container' },
+                        React.createElement(
+                            'div',
+                            { className: 'page-slider__inner', style: style },
+                            this.state.slider.map(function (item) {
+                                return React.createElement(
+                                    'div',
+                                    { className: 'page-slider__slide', key: item.id },
+                                    React.createElement(
+                                        'div',
+                                        { className: 'page-slider__slides' },
+                                        React.createElement('img', { src: item.img1,
+                                            className: 'img',
+                                            alt: 'img'
+                                        }),
+                                        React.createElement(
+                                            'div',
+                                            { className: 'page-slider__info-block' },
+                                            React.createElement(
+                                                'div',
+                                                { className: 'page-slider__name' },
+                                                item.name1
+                                            ),
+                                            React.createElement(
+                                                'div',
+                                                { className: 'page-slider__date' },
+                                                item.date1
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'page-slider__slides' },
+                                        React.createElement('img', { src: item.img2,
+                                            className: 'img',
+                                            alt: 'img'
+                                        }),
+                                        React.createElement(
+                                            'div',
+                                            { className: 'page-slider__info-block' },
+                                            React.createElement(
+                                                'div',
+                                                { className: 'page-slider__name' },
+                                                item.name2
+                                            ),
+                                            React.createElement(
+                                                'div',
+                                                { className: 'page-slider__date' },
+                                                item.date2
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { className: 'page-slider__slides' },
+                                        React.createElement('img', { src: item.img3,
+                                            className: 'img',
+                                            alt: 'img'
+                                        }),
+                                        React.createElement(
+                                            'div',
+                                            { className: 'page-slider__info-block' },
+                                            React.createElement(
+                                                'div',
+                                                { className: 'page-slider__name' },
+                                                item.name3
+                                            ),
+                                            React.createElement(
+                                                'div',
+                                                { className: 'page-slider__date' },
+                                                item.date3
+                                            )
+                                        )
+                                    )
+                                );
+                            }, this)
+                        )
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'page-gallery' },
+                    React.createElement(
+                        'div',
+                        { className: 'page-gallery__header' },
+                        React.createElement(
+                            'div',
+                            { className: 'page-gallery__caption' },
+                            React.createElement(
+                                'div',
+                                { className: 'page-gallery__name' },
+                                'Photos'
+                            ),
+                            React.createElement(
+                                'div',
+                                { className: 'page-gallery__number' },
+                                ' \u2022 ',
+                                this.state.actorImgs.length
+                            )
+                        ),
+                        React.createElement('button', { className: 'page-gallery__btn' })
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'page-gallery__photos' },
+                        this.state.actorImgs.map(function (index) {
+                            return React.createElement('img', { src: index.img, alt: 'img', key: index.id });
+                        })
+                    )
+                )
             );
         }
     }]);
@@ -29617,115 +29896,7 @@ var Ajax = exports.Ajax = function () {
 }();
 
 /***/ }),
-/* 355 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.Gallery = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(328);
-
-var React = _interopRequireWildcard(_react);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// import '../../styles/page-gallery.scss';
-
-var Gallery = exports.Gallery = function (_React$Component) {
-    _inherits(Gallery, _React$Component);
-
-    function Gallery() {
-        _classCallCheck(this, Gallery);
-
-        return _possibleConstructorReturn(this, (Gallery.__proto__ || Object.getPrototypeOf(Gallery)).apply(this, arguments));
-    }
-
-    _createClass(Gallery, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            var btn = document.querySelector(".page-gallery__btn");
-            var item = document.querySelector(".page-content");
-            btn.addEventListener('click', function () {
-                item.classList.toggle("page-content_active");
-            });
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            return React.createElement(
-                "div",
-                { className: "page-gallery" },
-                React.createElement(
-                    "div",
-                    { className: "page-gallery__header" },
-                    React.createElement(
-                        "div",
-                        { className: "page-gallery__caption" },
-                        React.createElement(
-                            "div",
-                            { className: "page-gallery__name" },
-                            "Photos"
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "page-gallery__number" },
-                            this.props.quantity
-                        )
-                    ),
-                    React.createElement("button", { className: "page-gallery__btn" })
-                ),
-                React.createElement(
-                    "div",
-                    { className: "page-gallery__photos" },
-                    React.createElement("img", {
-                        src: this.props.img1,
-                        alt: "img" }),
-                    React.createElement("img", {
-                        src: this.props.img2,
-                        alt: "img" }),
-                    React.createElement("img", {
-                        src: this.props.img3,
-                        alt: "img" }),
-                    React.createElement("img", {
-                        src: this.props.img4,
-                        alt: "img" }),
-                    React.createElement("img", {
-                        src: this.props.img5,
-                        alt: "img" }),
-                    React.createElement("img", {
-                        src: this.props.img6,
-                        alt: "img" }),
-                    React.createElement("img", {
-                        src: this.props.img7,
-                        alt: "img" }),
-                    React.createElement("img", {
-                        src: this.props.img8,
-                        alt: "img" }),
-                    React.createElement("img", {
-                        src: this.props.img9,
-                        alt: "img" })
-                )
-            );
-        }
-    }]);
-
-    return Gallery;
-}(React.Component);
-
-/***/ }),
+/* 355 */,
 /* 356 */,
 /* 357 */,
 /* 358 */,
@@ -29801,156 +29972,32 @@ var Gallery = exports.Gallery = function (_React$Component) {
 /* 428 */,
 /* 429 */,
 /* 430 */,
-/* 431 */,
-/* 432 */
+/* 431 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(125);
-module.exports = __webpack_require__(433);
+module.exports = __webpack_require__(432);
 
 
 /***/ }),
-/* 433 */
+/* 432 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.Slider = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-// import {Slider} from './components/sliderjs/slider.js'
-
+__webpack_require__(433);
 
 __webpack_require__(434);
 
-__webpack_require__(435);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-// import './sliderJS.js'
-
-// function toggle() {
-//     let item = document.querySelector('.page');
-//     item.classList.toggle('page_active');
-// }
-
-// function togglePh() {
-//     let item = document.querySelector('.page-content');
-//     item.classList.toggle('active');
-// }
-//
-// function toggleM() {
-//     let item = document.querySelector('.drop-down');
-//     item.classList.toggle('drop-down_active');
-// }
-
-// document.querySelector('.page-aside__switcher').addEventListener('click', toggle);
-// document.querySelector('.page-gallery__btn').addEventListener('click', togglePh);
-// document.querySelector('.drop-down__btn').addEventListener('click', toggleM);
-
-var dotsContainer = document.querySelector('.page-slider__dots'),
-    inner = document.querySelector('.page-slider__inner'),
-    slides = inner.querySelectorAll('.page-slider__slide'),
-    currentImageIndex = 0,
-    Width = document.querySelector('.page-slider__slide'),
-    width = void 0,
-    dots = [],
-    timer = void 0;
-
-var Slider = exports.Slider = function () {
-    function Slider() {
-        _classCallCheck(this, Slider);
-
-        this.slider();
-        this.onElementWidthChange();
-        this.switchImg();
-        this.autoSlider();
-    }
-
-    _createClass(Slider, [{
-        key: 'slider',
-        value: function slider() {
-            var _this = this;
-
-            var _loop = function _loop(i) {
-                var b = document.createElement('span');
-                b.classList.add('dot');
-                dotsContainer.appendChild(b);
-                dots.push(b);
-
-                b.addEventListener('click', function () {
-                    currentImageIndex = i;
-                    clearInterval(timer);
-                    _this.switchImg();
-                });
-            };
-
-            for (var i = 0; i < slides.length; i++) {
-                _loop(i);
-            }
-        }
-    }, {
-        key: 'onElementWidthChange',
-        value: function onElementWidthChange() {
-            var lastWidth = Width.clientWidth,
-                newWidth = void 0;
-            (function run() {
-                newWidth = Width.clientWidth;
-                if (lastWidth !== newWidth) lastWidth = newWidth;
-                width = lastWidth;
-
-                if (Width.onElementHeightChangeTimer) clearTimeout(Width.onElementHeightChangeTimer);
-
-                Width.onElementHeightChangeTimer = setTimeout(run, 200);
-            })();
-        }
-    }, {
-        key: 'switchImg',
-        value: function switchImg() {
-            inner.style.left = -width * currentImageIndex + 'px';
-
-            dots.forEach(function (b, i) {
-                if (i === currentImageIndex) {
-                    b.classList.add('active');
-                } else {
-                    b.classList.remove('active');
-                }
-            });
-        }
-    }, {
-        key: 'autoSlider',
-        value: function autoSlider() {
-            var _this2 = this;
-
-            timer = setInterval(function () {
-                currentImageIndex++;
-
-                if (currentImageIndex >= slides.length) {
-                    currentImageIndex = 0;
-                }
-
-                _this2.switchImg();
-            }, 8000);
-        }
-    }]);
-
-    return Slider;
-}();
-
-var slider = new Slider(document.querySelector('.page-slider'));
-
 /***/ }),
-/* 434 */
+/* 433 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 435 */
+/* 434 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29962,11 +30009,11 @@ var React = _interopRequireWildcard(_react);
 
 var _reactDom = __webpack_require__(343);
 
-var _headerComponents = __webpack_require__(436);
+var _headerComponents = __webpack_require__(435);
 
-var _pageContentComponents = __webpack_require__(437);
+var _pageContentComponents = __webpack_require__(436);
 
-__webpack_require__(355);
+__webpack_require__(441);
 
 __webpack_require__(353);
 
@@ -29985,7 +30032,7 @@ function Page() {
 (0, _reactDom.render)(React.createElement(Page, null), document.querySelector('#root'));
 
 /***/ }),
-/* 436 */
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30223,7 +30270,7 @@ var Header = exports.Header = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 437 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30477,510 +30524,7 @@ var PageContent = exports.PageContent = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 438 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.SliderRender = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(328);
-
-var React = _interopRequireWildcard(_react);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// import {render} from 'react-dom';
-// import {Slide} from './slide.jsx'
-// // import Dots from './dots'
-// import '../../styles/slider.scss';
-// import {Ajax} from "../utils/ajax";
-
-var SliderRender = exports.SliderRender = function (_React$Component) {
-    _inherits(SliderRender, _React$Component);
-
-    function SliderRender() {
-        _classCallCheck(this, SliderRender);
-
-        return _possibleConstructorReturn(this, (SliderRender.__proto__ || Object.getPrototypeOf(SliderRender)).apply(this, arguments));
-    }
-
-    _createClass(SliderRender, [{
-        key: "render",
-        value: function render() {
-            return React.createElement(
-                "div",
-                { className: "page-slider" },
-                React.createElement(
-                    "div",
-                    { className: "page-slider__header" },
-                    React.createElement(
-                        "div",
-                        { className: "page-slider__caption" },
-                        "Known for"
-                    ),
-                    React.createElement("div", { className: "page-slider__dots" })
-                ),
-                React.createElement(
-                    "div",
-                    { className: "page-slider__slides-container" },
-                    React.createElement(
-                        "div",
-                        { className: "page-slider__inner" },
-                        React.createElement(
-                            "div",
-                            { className: "page-slider__slide" },
-                            React.createElement(
-                                "div",
-                                { className: "page-slider__slides" },
-                                React.createElement("img", { src: "https://i.ytimg.com/vi/ggfq7VQmt5I/maxresdefault.jpg", alt: "img",
-                                    className: "img" }),
-                                React.createElement(
-                                    "div",
-                                    { className: "page-slider__info-block" },
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__name" },
-                                        "Mad Max: Furry Road"
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__date" },
-                                        "2015 - Max Rockatansky"
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "page-slider__slides" },
-                                React.createElement("img", {
-                                    src: "https://vignette.wikia.nocookie.net/inception/images/0/0e/Eames.png/revision/latest?cb=20100710031646",
-                                    alt: "img", className: "img" }),
-                                React.createElement(
-                                    "div",
-                                    { className: "page-slider__info-block" },
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__name" },
-                                        "Inception"
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__date" },
-                                        "2010 - Eames"
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "page-slider__slides" },
-                                React.createElement("img", {
-                                    src: "https://www.walldevil.com/wallpapers/w03/936876-bane-batman-batman-the-dark-knight-rises-men-movies-snow-tom-hardy.jpg",
-                                    alt: "img", className: "img" }),
-                                React.createElement(
-                                    "div",
-                                    { className: "page-slider__info-block" },
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__name" },
-                                        "The Dark Knight Rises"
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__date" },
-                                        "2012 - Bane"
-                                    )
-                                )
-                            )
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "page-slider__slide" },
-                            React.createElement(
-                                "div",
-                                { className: "page-slider__slides" },
-                                React.createElement("img", {
-                                    src: "https://static1.squarespace.com/static/51b3dc8ee4b051b96ceb10de/t/5adeab3e758d468e9c390729/1524542278081/tom-hardy-transforms-into-venom-in-a-substantially-better-new-trailer-for-venom-social.jpg?format=2500w",
-                                    alt: "img", className: "img" }),
-                                React.createElement(
-                                    "div",
-                                    { className: "page-slider__info-block" },
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__name" },
-                                        "Venom"
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__date" },
-                                        "2018 - Eddie Brock"
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "page-slider__slides" },
-                                React.createElement("img", {
-                                    src: "https://images5.alphacoders.com/806/thumb-1920-806399.jpg",
-                                    alt: "img", className: "img" }),
-                                React.createElement(
-                                    "div",
-                                    { className: "page-slider__info-block" },
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__name" },
-                                        "Legend"
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__date" },
-                                        "2015 - Eames"
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "page-slider__slides" },
-                                React.createElement("img", {
-                                    src: "https://www.sbs.com.au/guide/sites/sbs.com.au.guide/files/styles/full/public/tom_hardy.jpg?itok=3uzXn7Y2",
-                                    alt: "img", className: "img" }),
-                                React.createElement(
-                                    "div",
-                                    { className: "page-slider__info-block" },
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__name" },
-                                        "Taboo"
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__date" },
-                                        "2017 - James Delaney"
-                                    )
-                                )
-                            )
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "page-slider__slide" },
-                            React.createElement(
-                                "div",
-                                { className: "page-slider__slides" },
-                                React.createElement("img", {
-                                    src: "https://i.ytimg.com/vi/w_3Ehh9jw1A/maxresdefault.jpg",
-                                    alt: "img", className: "img" }),
-                                React.createElement(
-                                    "div",
-                                    { className: "page-slider__info-block" },
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__name" },
-                                        "Warrior"
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__date" },
-                                        "2011 - Tom Conlon"
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "page-slider__slides" },
-                                React.createElement("img", {
-                                    src: "https://images.askmen.com/720x540/entertainment/galleries/tom-hardy-s-best-characters/3-tuck-this-means-war-1441734039.jpg",
-                                    alt: "img", className: "img" }),
-                                React.createElement(
-                                    "div",
-                                    { className: "page-slider__info-block" },
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__name" },
-                                        "This means war"
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__date" },
-                                        "2012 - Tuck Hansen"
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "page-slider__slides" },
-                                React.createElement("img", {
-                                    src: "https://new.static.tv.nu/18176711?width=720&height=405",
-                                    alt: "img", className: "img" }),
-                                React.createElement(
-                                    "div",
-                                    { className: "page-slider__info-block" },
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__name" },
-                                        "Child 44"
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "page-slider__date" },
-                                        "2015 - Leo Demidov"
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            );
-        }
-    }]);
-
-    return SliderRender;
-}(React.Component);
-
-//
-// // Data for carousel
-// const carouselSlidesData = [
-//     {
-//         content:
-//             "Tomorrow, you will be released. If you are bored of brawling with thieves and want to achieve something there is a rare blue flower that grows on the eastern slopes. Pick one of these flowers. If you can carry it to the top of the mountain, you may find what you were looking for in the first place.",
-//         author: "Bane",
-//         source: "facebook"
-//     }, {
-//         content:
-//             "You have learn to bury your guilt with anger. I will teach you to confront it and to face the truth.",
-//         author: "Ra's Al Ghul",
-//         source: "Snapchat"
-//     }, {
-//         content:
-//             "Introduce a little anarchy, upset the established order and everything becomes chaos. I'm an agent of chaos. Oh, and you know the thing about chaos? It's fair.",
-//         author: "Joker",
-//         source: "facebook"
-//     }, {
-//         content:
-//             "I can't do that as Bruce Wayne... as a man. I'm flesh and blood. I can be ignored, destroyed. But as a symbol, I can be incorruptible, I can be everlasting.",
-//         author: "Bruce Wayne",
-//         source: "facebook"
-//     }
-// ];
-//
-// class CarouselIndicator extends React.Component {
-//     render() {
-//         return (
-//             <li>
-//                 <a
-//                     className={
-//                         this.props.index === this.props.activeIndex
-//                             ? "carousel__indicator carousel__indicator--active"
-//                             : "carousel__indicator"
-//                     }
-//                     onClick={this.props.onClick}
-//                 />
-//             </li>
-//         );
-//     }
-// }
-//
-// class CarouselSlide extends React.Component {
-//     render() {
-//         return (
-//             <li
-//                 className={
-//                     this.props.index === this.props.activeIndex
-//                         ? "carousel__slide carousel__slide--active"
-//                         : "carousel__slide"
-//                 }
-//             >
-//                 <p className="carousel-slide__content">{this.props.content}</p>
-//
-//                 <p>
-//                     <strong className="carousel-slide__author">
-//                         {this.props.author}
-//                     </strong>,
-//                     {" "}
-//                     <small className="carousel-slide__source">
-//                         {this.props.source}
-//                     </small>
-//                 </p>
-//             </li>
-//         );
-//     }
-// }
-//
-// // Carousel wrapper component
-// class Carousel extends React.Component {
-//     constructor(props) {
-//         super(props);
-//
-//         this.goToSlide = this.goToSlide.bind(this);
-//         this.goToPrevSlide = this.goToPrevSlide.bind(this);
-//         this.goToNextSlide = this.goToNextSlide.bind(this);
-//
-//         this.state = {
-//             activeIndex: 0
-//         };
-//     }
-//
-//     goToSlide(index) {
-//         this.setState({
-//             activeIndex: index
-//         });
-//     }
-//
-//     goToPrevSlide(e) {
-//         e.preventDefault();
-//
-//         let index = this.state.activeIndex;
-//         let { slides } = this.props;
-//         let slidesLength = slides.length;
-//
-//         if (index < 1) {
-//             index = slidesLength;
-//         }
-//
-//         --index;
-//
-//         this.setState({
-//             activeIndex: index
-//         });
-//     }
-//
-//     goToNextSlide(e) {
-//         e.preventDefault();
-//
-//         let index = this.state.activeIndex;
-//         let { slides } = this.props;
-//         let slidesLength = slides.length - 1;
-//
-//         if (index === slidesLength) {
-//             index = -1;
-//         }
-//
-//         ++index;
-//
-//         this.setState({
-//             activeIndex: index
-//         });
-//     }
-//
-//     render() {
-//         return (
-//             <div className="carousel">
-//                 <CarouselSlide
-//                     key={index}
-//                     index={index}
-//                     activeIndex={this.state.activeIndex}
-//
-//                 />
-//                 )}
-//                 <ul className="carousel__indicators">
-//                     {this.props.slides.map((slide, index) =>
-//                         <CarouselIndicator
-//                             key={index}
-//                             index={index}
-//                             activeIndex={this.state.activeIndex}
-//                             isActive={this.state.activeIndex===index}
-//                             onClick={(e) => this.goToSlide(index)}
-//                         />
-//                     )}
-//                 </ul>
-//             </div>
-//         );
-//     }
-// }
-//
-//
-// render(<Carousel slides={carouselSlidesData} />, document.querySelector('.help'));
-//
-//
-//
-// //
-// // // let dotsContainer = document.querySelector('.page-slider__dots'),
-// // //     inner = document.querySelector('.page-slider__inner'),
-// // //     imgs = document.querySelectorAll('.page-slider__slide'),
-// // //     currentImageIndex = 0,
-// // //     Width = document.querySelector('.page-slider__slide'),
-// // //     width,
-// // //     dots = [],
-// // //     timer;
-// //
-// // class Slider extends React.Component {
-// //     constructor() {
-// //         super();
-// //     }
-//
-// // slider() {
-// //     for (let i = 0; i < imgs.length; i++) {
-// //         let b = document.createElement('span');
-// //         b.classList.add('dot');
-// //         dotsContainer.appendChild(b);
-// //         dots.push(b);
-// //
-// //         b.addEventListener('click', ()=> {
-// //             currentImageIndex = i;
-// //             clearInterval(timer);
-// //             this.switchImg();
-// //         });
-// //     }
-// // }
-// //
-// // onElementHeightChange() {
-// //     let lastWidth = Width.clientWidth, newWidth;
-// //     (function run() {
-// //         newWidth = Width.clientWidth;
-// //         if (lastWidth !== newWidth)
-// //             lastWidth = newWidth;
-// //         width = lastWidth;
-// //
-// //         if (Width.onElementHeightChangeTimer)
-// //             clearTimeout(Width.onElementHeightChangeTimer);
-// //
-// //         Width.onElementHeightChangeTimer = setTimeout(run, 200);
-// //     })();
-// // }
-// //
-// // switchImg() {
-// //     inner.style.left = -width * currentImageIndex + 'px';
-// //
-// //     dots.forEach(function (b, i) {
-// //         if (i === currentImageIndex) {
-// //             b.classList.add('active');
-// //         } else {
-// //             b.classList.remove('active');
-// //         }
-// //     });
-// // }
-// //
-// // autoSlider() {
-// //     timer = setInterval(() => {
-// //         currentImageIndex++;
-// //
-// //         if (currentImageIndex >= imgs.length) {
-// //             currentImageIndex = 0;
-// //         }
-// //
-// //         this.switchImg();
-// //     }, 5000);
-// // }
-// //
-// // sliderDidMount() {
-// //     this.onElementHeightChange();
-// //     this.switchImg();
-// //     this.autoSlider();
-// // }
-
-/***/ }),
-/* 439 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31083,7 +30627,7 @@ var ActorInfoItem = exports.ActorInfoItem = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 440 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31187,7 +30731,7 @@ var ControlButton = exports.ControlButton = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 441 */
+/* 439 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31313,6 +30857,1145 @@ var SliderStatic = exports.SliderStatic = function (_React$Component) {
 
     return SliderStatic;
 }(React.Component);
+
+/***/ }),
+/* 440 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * A collection of shims that provide minimal functionality of the ES6 collections.
+ *
+ * These implementations are not meant to be used outside of the ResizeObserver
+ * modules as they cover only a limited range of use cases.
+ */
+/* eslint-disable require-jsdoc, valid-jsdoc */
+var MapShim = (function () {
+    if (typeof Map !== 'undefined') {
+        return Map;
+    }
+
+    /**
+     * Returns index in provided array that matches the specified key.
+     *
+     * @param {Array<Array>} arr
+     * @param {*} key
+     * @returns {number}
+     */
+    function getIndex(arr, key) {
+        var result = -1;
+
+        arr.some(function (entry, index) {
+            if (entry[0] === key) {
+                result = index;
+
+                return true;
+            }
+
+            return false;
+        });
+
+        return result;
+    }
+
+    return (function () {
+        function anonymous() {
+            this.__entries__ = [];
+        }
+
+        var prototypeAccessors = { size: { configurable: true } };
+
+        /**
+         * @returns {boolean}
+         */
+        prototypeAccessors.size.get = function () {
+            return this.__entries__.length;
+        };
+
+        /**
+         * @param {*} key
+         * @returns {*}
+         */
+        anonymous.prototype.get = function (key) {
+            var index = getIndex(this.__entries__, key);
+            var entry = this.__entries__[index];
+
+            return entry && entry[1];
+        };
+
+        /**
+         * @param {*} key
+         * @param {*} value
+         * @returns {void}
+         */
+        anonymous.prototype.set = function (key, value) {
+            var index = getIndex(this.__entries__, key);
+
+            if (~index) {
+                this.__entries__[index][1] = value;
+            } else {
+                this.__entries__.push([key, value]);
+            }
+        };
+
+        /**
+         * @param {*} key
+         * @returns {void}
+         */
+        anonymous.prototype.delete = function (key) {
+            var entries = this.__entries__;
+            var index = getIndex(entries, key);
+
+            if (~index) {
+                entries.splice(index, 1);
+            }
+        };
+
+        /**
+         * @param {*} key
+         * @returns {void}
+         */
+        anonymous.prototype.has = function (key) {
+            return !!~getIndex(this.__entries__, key);
+        };
+
+        /**
+         * @returns {void}
+         */
+        anonymous.prototype.clear = function () {
+            this.__entries__.splice(0);
+        };
+
+        /**
+         * @param {Function} callback
+         * @param {*} [ctx=null]
+         * @returns {void}
+         */
+        anonymous.prototype.forEach = function (callback, ctx) {
+            var this$1 = this;
+            if ( ctx === void 0 ) ctx = null;
+
+            for (var i = 0, list = this$1.__entries__; i < list.length; i += 1) {
+                var entry = list[i];
+
+                callback.call(ctx, entry[1], entry[0]);
+            }
+        };
+
+        Object.defineProperties( anonymous.prototype, prototypeAccessors );
+
+        return anonymous;
+    }());
+})();
+
+/**
+ * Detects whether window and document objects are available in current environment.
+ */
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined' && window.document === document;
+
+// Returns global object of a current environment.
+var global$1 = (function () {
+    if (typeof global !== 'undefined' && global.Math === Math) {
+        return global;
+    }
+
+    if (typeof self !== 'undefined' && self.Math === Math) {
+        return self;
+    }
+
+    if (typeof window !== 'undefined' && window.Math === Math) {
+        return window;
+    }
+
+    // eslint-disable-next-line no-new-func
+    return Function('return this')();
+})();
+
+/**
+ * A shim for the requestAnimationFrame which falls back to the setTimeout if
+ * first one is not supported.
+ *
+ * @returns {number} Requests' identifier.
+ */
+var requestAnimationFrame$1 = (function () {
+    if (typeof requestAnimationFrame === 'function') {
+        // It's required to use a bounded function because IE sometimes throws
+        // an "Invalid calling object" error if rAF is invoked without the global
+        // object on the left hand side.
+        return requestAnimationFrame.bind(global$1);
+    }
+
+    return function (callback) { return setTimeout(function () { return callback(Date.now()); }, 1000 / 60); };
+})();
+
+// Defines minimum timeout before adding a trailing call.
+var trailingTimeout = 2;
+
+/**
+ * Creates a wrapper function which ensures that provided callback will be
+ * invoked only once during the specified delay period.
+ *
+ * @param {Function} callback - Function to be invoked after the delay period.
+ * @param {number} delay - Delay after which to invoke callback.
+ * @returns {Function}
+ */
+var throttle = function (callback, delay) {
+    var leadingCall = false,
+        trailingCall = false,
+        lastCallTime = 0;
+
+    /**
+     * Invokes the original callback function and schedules new invocation if
+     * the "proxy" was called during current request.
+     *
+     * @returns {void}
+     */
+    function resolvePending() {
+        if (leadingCall) {
+            leadingCall = false;
+
+            callback();
+        }
+
+        if (trailingCall) {
+            proxy();
+        }
+    }
+
+    /**
+     * Callback invoked after the specified delay. It will further postpone
+     * invocation of the original function delegating it to the
+     * requestAnimationFrame.
+     *
+     * @returns {void}
+     */
+    function timeoutCallback() {
+        requestAnimationFrame$1(resolvePending);
+    }
+
+    /**
+     * Schedules invocation of the original function.
+     *
+     * @returns {void}
+     */
+    function proxy() {
+        var timeStamp = Date.now();
+
+        if (leadingCall) {
+            // Reject immediately following calls.
+            if (timeStamp - lastCallTime < trailingTimeout) {
+                return;
+            }
+
+            // Schedule new call to be in invoked when the pending one is resolved.
+            // This is important for "transitions" which never actually start
+            // immediately so there is a chance that we might miss one if change
+            // happens amids the pending invocation.
+            trailingCall = true;
+        } else {
+            leadingCall = true;
+            trailingCall = false;
+
+            setTimeout(timeoutCallback, delay);
+        }
+
+        lastCallTime = timeStamp;
+    }
+
+    return proxy;
+};
+
+// Minimum delay before invoking the update of observers.
+var REFRESH_DELAY = 20;
+
+// A list of substrings of CSS properties used to find transition events that
+// might affect dimensions of observed elements.
+var transitionKeys = ['top', 'right', 'bottom', 'left', 'width', 'height', 'size', 'weight'];
+
+// Check if MutationObserver is available.
+var mutationObserverSupported = typeof MutationObserver !== 'undefined';
+
+/**
+ * Singleton controller class which handles updates of ResizeObserver instances.
+ */
+var ResizeObserverController = function() {
+    this.connected_ = false;
+    this.mutationEventsAdded_ = false;
+    this.mutationsObserver_ = null;
+    this.observers_ = [];
+
+    this.onTransitionEnd_ = this.onTransitionEnd_.bind(this);
+    this.refresh = throttle(this.refresh.bind(this), REFRESH_DELAY);
+};
+
+/**
+ * Adds observer to observers list.
+ *
+ * @param {ResizeObserverSPI} observer - Observer to be added.
+ * @returns {void}
+ */
+
+
+/**
+ * Holds reference to the controller's instance.
+ *
+ * @private {ResizeObserverController}
+ */
+
+
+/**
+ * Keeps reference to the instance of MutationObserver.
+ *
+ * @private {MutationObserver}
+ */
+
+/**
+ * Indicates whether DOM listeners have been added.
+ *
+ * @private {boolean}
+ */
+ResizeObserverController.prototype.addObserver = function (observer) {
+    if (!~this.observers_.indexOf(observer)) {
+        this.observers_.push(observer);
+    }
+
+    // Add listeners if they haven't been added yet.
+    if (!this.connected_) {
+        this.connect_();
+    }
+};
+
+/**
+ * Removes observer from observers list.
+ *
+ * @param {ResizeObserverSPI} observer - Observer to be removed.
+ * @returns {void}
+ */
+ResizeObserverController.prototype.removeObserver = function (observer) {
+    var observers = this.observers_;
+    var index = observers.indexOf(observer);
+
+    // Remove observer if it's present in registry.
+    if (~index) {
+        observers.splice(index, 1);
+    }
+
+    // Remove listeners if controller has no connected observers.
+    if (!observers.length && this.connected_) {
+        this.disconnect_();
+    }
+};
+
+/**
+ * Invokes the update of observers. It will continue running updates insofar
+ * it detects changes.
+ *
+ * @returns {void}
+ */
+ResizeObserverController.prototype.refresh = function () {
+    var changesDetected = this.updateObservers_();
+
+    // Continue running updates if changes have been detected as there might
+    // be future ones caused by CSS transitions.
+    if (changesDetected) {
+        this.refresh();
+    }
+};
+
+/**
+ * Updates every observer from observers list and notifies them of queued
+ * entries.
+ *
+ * @private
+ * @returns {boolean} Returns "true" if any observer has detected changes in
+ *  dimensions of it's elements.
+ */
+ResizeObserverController.prototype.updateObservers_ = function () {
+    // Collect observers that have active observations.
+    var activeObservers = this.observers_.filter(function (observer) {
+        return observer.gatherActive(), observer.hasActive();
+    });
+
+    // Deliver notifications in a separate cycle in order to avoid any
+    // collisions between observers, e.g. when multiple instances of
+    // ResizeObserver are tracking the same element and the callback of one
+    // of them changes content dimensions of the observed target. Sometimes
+    // this may result in notifications being blocked for the rest of observers.
+    activeObservers.forEach(function (observer) { return observer.broadcastActive(); });
+
+    return activeObservers.length > 0;
+};
+
+/**
+ * Initializes DOM listeners.
+ *
+ * @private
+ * @returns {void}
+ */
+ResizeObserverController.prototype.connect_ = function () {
+    // Do nothing if running in a non-browser environment or if listeners
+    // have been already added.
+    if (!isBrowser || this.connected_) {
+        return;
+    }
+
+    // Subscription to the "Transitionend" event is used as a workaround for
+    // delayed transitions. This way it's possible to capture at least the
+    // final state of an element.
+    document.addEventListener('transitionend', this.onTransitionEnd_);
+
+    window.addEventListener('resize', this.refresh);
+
+    if (mutationObserverSupported) {
+        this.mutationsObserver_ = new MutationObserver(this.refresh);
+
+        this.mutationsObserver_.observe(document, {
+            attributes: true,
+            childList: true,
+            characterData: true,
+            subtree: true
+        });
+    } else {
+        document.addEventListener('DOMSubtreeModified', this.refresh);
+
+        this.mutationEventsAdded_ = true;
+    }
+
+    this.connected_ = true;
+};
+
+/**
+ * Removes DOM listeners.
+ *
+ * @private
+ * @returns {void}
+ */
+ResizeObserverController.prototype.disconnect_ = function () {
+    // Do nothing if running in a non-browser environment or if listeners
+    // have been already removed.
+    if (!isBrowser || !this.connected_) {
+        return;
+    }
+
+    document.removeEventListener('transitionend', this.onTransitionEnd_);
+    window.removeEventListener('resize', this.refresh);
+
+    if (this.mutationsObserver_) {
+        this.mutationsObserver_.disconnect();
+    }
+
+    if (this.mutationEventsAdded_) {
+        document.removeEventListener('DOMSubtreeModified', this.refresh);
+    }
+
+    this.mutationsObserver_ = null;
+    this.mutationEventsAdded_ = false;
+    this.connected_ = false;
+};
+
+/**
+ * "Transitionend" event handler.
+ *
+ * @private
+ * @param {TransitionEvent} event
+ * @returns {void}
+ */
+ResizeObserverController.prototype.onTransitionEnd_ = function (ref) {
+        var propertyName = ref.propertyName; if ( propertyName === void 0 ) propertyName = '';
+
+    // Detect whether transition may affect dimensions of an element.
+    var isReflowProperty = transitionKeys.some(function (key) {
+        return !!~propertyName.indexOf(key);
+    });
+
+    if (isReflowProperty) {
+        this.refresh();
+    }
+};
+
+/**
+ * Returns instance of the ResizeObserverController.
+ *
+ * @returns {ResizeObserverController}
+ */
+ResizeObserverController.getInstance = function () {
+    if (!this.instance_) {
+        this.instance_ = new ResizeObserverController();
+    }
+
+    return this.instance_;
+};
+
+ResizeObserverController.instance_ = null;
+
+/**
+ * Defines non-writable/enumerable properties of the provided target object.
+ *
+ * @param {Object} target - Object for which to define properties.
+ * @param {Object} props - Properties to be defined.
+ * @returns {Object} Target object.
+ */
+var defineConfigurable = (function (target, props) {
+    for (var i = 0, list = Object.keys(props); i < list.length; i += 1) {
+        var key = list[i];
+
+        Object.defineProperty(target, key, {
+            value: props[key],
+            enumerable: false,
+            writable: false,
+            configurable: true
+        });
+    }
+
+    return target;
+});
+
+/**
+ * Returns the global object associated with provided element.
+ *
+ * @param {Object} target
+ * @returns {Object}
+ */
+var getWindowOf = (function (target) {
+    // Assume that the element is an instance of Node, which means that it
+    // has the "ownerDocument" property from which we can retrieve a
+    // corresponding global object.
+    var ownerGlobal = target && target.ownerDocument && target.ownerDocument.defaultView;
+
+    // Return the local global object if it's not possible extract one from
+    // provided element.
+    return ownerGlobal || global$1;
+});
+
+// Placeholder of an empty content rectangle.
+var emptyRect = createRectInit(0, 0, 0, 0);
+
+/**
+ * Converts provided string to a number.
+ *
+ * @param {number|string} value
+ * @returns {number}
+ */
+function toFloat(value) {
+    return parseFloat(value) || 0;
+}
+
+/**
+ * Extracts borders size from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @param {...string} positions - Borders positions (top, right, ...)
+ * @returns {number}
+ */
+function getBordersSize(styles) {
+    var positions = [], len = arguments.length - 1;
+    while ( len-- > 0 ) positions[ len ] = arguments[ len + 1 ];
+
+    return positions.reduce(function (size, position) {
+        var value = styles['border-' + position + '-width'];
+
+        return size + toFloat(value);
+    }, 0);
+}
+
+/**
+ * Extracts paddings sizes from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @returns {Object} Paddings box.
+ */
+function getPaddings(styles) {
+    var positions = ['top', 'right', 'bottom', 'left'];
+    var paddings = {};
+
+    for (var i = 0, list = positions; i < list.length; i += 1) {
+        var position = list[i];
+
+        var value = styles['padding-' + position];
+
+        paddings[position] = toFloat(value);
+    }
+
+    return paddings;
+}
+
+/**
+ * Calculates content rectangle of provided SVG element.
+ *
+ * @param {SVGGraphicsElement} target - Element content rectangle of which needs
+ *      to be calculated.
+ * @returns {DOMRectInit}
+ */
+function getSVGContentRect(target) {
+    var bbox = target.getBBox();
+
+    return createRectInit(0, 0, bbox.width, bbox.height);
+}
+
+/**
+ * Calculates content rectangle of provided HTMLElement.
+ *
+ * @param {HTMLElement} target - Element for which to calculate the content rectangle.
+ * @returns {DOMRectInit}
+ */
+function getHTMLElementContentRect(target) {
+    // Client width & height properties can't be
+    // used exclusively as they provide rounded values.
+    var clientWidth = target.clientWidth;
+    var clientHeight = target.clientHeight;
+
+    // By this condition we can catch all non-replaced inline, hidden and
+    // detached elements. Though elements with width & height properties less
+    // than 0.5 will be discarded as well.
+    //
+    // Without it we would need to implement separate methods for each of
+    // those cases and it's not possible to perform a precise and performance
+    // effective test for hidden elements. E.g. even jQuery's ':visible' filter
+    // gives wrong results for elements with width & height less than 0.5.
+    if (!clientWidth && !clientHeight) {
+        return emptyRect;
+    }
+
+    var styles = getWindowOf(target).getComputedStyle(target);
+    var paddings = getPaddings(styles);
+    var horizPad = paddings.left + paddings.right;
+    var vertPad = paddings.top + paddings.bottom;
+
+    // Computed styles of width & height are being used because they are the
+    // only dimensions available to JS that contain non-rounded values. It could
+    // be possible to utilize the getBoundingClientRect if only it's data wasn't
+    // affected by CSS transformations let alone paddings, borders and scroll bars.
+    var width = toFloat(styles.width),
+        height = toFloat(styles.height);
+
+    // Width & height include paddings and borders when the 'border-box' box
+    // model is applied (except for IE).
+    if (styles.boxSizing === 'border-box') {
+        // Following conditions are required to handle Internet Explorer which
+        // doesn't include paddings and borders to computed CSS dimensions.
+        //
+        // We can say that if CSS dimensions + paddings are equal to the "client"
+        // properties then it's either IE, and thus we don't need to subtract
+        // anything, or an element merely doesn't have paddings/borders styles.
+        if (Math.round(width + horizPad) !== clientWidth) {
+            width -= getBordersSize(styles, 'left', 'right') + horizPad;
+        }
+
+        if (Math.round(height + vertPad) !== clientHeight) {
+            height -= getBordersSize(styles, 'top', 'bottom') + vertPad;
+        }
+    }
+
+    // Following steps can't be applied to the document's root element as its
+    // client[Width/Height] properties represent viewport area of the window.
+    // Besides, it's as well not necessary as the <html> itself neither has
+    // rendered scroll bars nor it can be clipped.
+    if (!isDocumentElement(target)) {
+        // In some browsers (only in Firefox, actually) CSS width & height
+        // include scroll bars size which can be removed at this step as scroll
+        // bars are the only difference between rounded dimensions + paddings
+        // and "client" properties, though that is not always true in Chrome.
+        var vertScrollbar = Math.round(width + horizPad) - clientWidth;
+        var horizScrollbar = Math.round(height + vertPad) - clientHeight;
+
+        // Chrome has a rather weird rounding of "client" properties.
+        // E.g. for an element with content width of 314.2px it sometimes gives
+        // the client width of 315px and for the width of 314.7px it may give
+        // 314px. And it doesn't happen all the time. So just ignore this delta
+        // as a non-relevant.
+        if (Math.abs(vertScrollbar) !== 1) {
+            width -= vertScrollbar;
+        }
+
+        if (Math.abs(horizScrollbar) !== 1) {
+            height -= horizScrollbar;
+        }
+    }
+
+    return createRectInit(paddings.left, paddings.top, width, height);
+}
+
+/**
+ * Checks whether provided element is an instance of the SVGGraphicsElement.
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+var isSVGGraphicsElement = (function () {
+    // Some browsers, namely IE and Edge, don't have the SVGGraphicsElement
+    // interface.
+    if (typeof SVGGraphicsElement !== 'undefined') {
+        return function (target) { return target instanceof getWindowOf(target).SVGGraphicsElement; };
+    }
+
+    // If it's so, then check that element is at least an instance of the
+    // SVGElement and that it has the "getBBox" method.
+    // eslint-disable-next-line no-extra-parens
+    return function (target) { return target instanceof getWindowOf(target).SVGElement && typeof target.getBBox === 'function'; };
+})();
+
+/**
+ * Checks whether provided element is a document element (<html>).
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+function isDocumentElement(target) {
+    return target === getWindowOf(target).document.documentElement;
+}
+
+/**
+ * Calculates an appropriate content rectangle for provided html or svg element.
+ *
+ * @param {Element} target - Element content rectangle of which needs to be calculated.
+ * @returns {DOMRectInit}
+ */
+function getContentRect(target) {
+    if (!isBrowser) {
+        return emptyRect;
+    }
+
+    if (isSVGGraphicsElement(target)) {
+        return getSVGContentRect(target);
+    }
+
+    return getHTMLElementContentRect(target);
+}
+
+/**
+ * Creates rectangle with an interface of the DOMRectReadOnly.
+ * Spec: https://drafts.fxtf.org/geometry/#domrectreadonly
+ *
+ * @param {DOMRectInit} rectInit - Object with rectangle's x/y coordinates and dimensions.
+ * @returns {DOMRectReadOnly}
+ */
+function createReadOnlyRect(ref) {
+    var x = ref.x;
+    var y = ref.y;
+    var width = ref.width;
+    var height = ref.height;
+
+    // If DOMRectReadOnly is available use it as a prototype for the rectangle.
+    var Constr = typeof DOMRectReadOnly !== 'undefined' ? DOMRectReadOnly : Object;
+    var rect = Object.create(Constr.prototype);
+
+    // Rectangle's properties are not writable and non-enumerable.
+    defineConfigurable(rect, {
+        x: x, y: y, width: width, height: height,
+        top: y,
+        right: x + width,
+        bottom: height + y,
+        left: x
+    });
+
+    return rect;
+}
+
+/**
+ * Creates DOMRectInit object based on the provided dimensions and the x/y coordinates.
+ * Spec: https://drafts.fxtf.org/geometry/#dictdef-domrectinit
+ *
+ * @param {number} x - X coordinate.
+ * @param {number} y - Y coordinate.
+ * @param {number} width - Rectangle's width.
+ * @param {number} height - Rectangle's height.
+ * @returns {DOMRectInit}
+ */
+function createRectInit(x, y, width, height) {
+    return { x: x, y: y, width: width, height: height };
+}
+
+/**
+ * Class that is responsible for computations of the content rectangle of
+ * provided DOM element and for keeping track of it's changes.
+ */
+var ResizeObservation = function(target) {
+    this.broadcastWidth = 0;
+    this.broadcastHeight = 0;
+    this.contentRect_ = createRectInit(0, 0, 0, 0);
+
+    this.target = target;
+};
+
+/**
+ * Updates content rectangle and tells whether it's width or height properties
+ * have changed since the last broadcast.
+ *
+ * @returns {boolean}
+ */
+
+
+/**
+ * Reference to the last observed content rectangle.
+ *
+ * @private {DOMRectInit}
+ */
+
+
+/**
+ * Broadcasted width of content rectangle.
+ *
+ * @type {number}
+ */
+ResizeObservation.prototype.isActive = function () {
+    var rect = getContentRect(this.target);
+
+    this.contentRect_ = rect;
+
+    return rect.width !== this.broadcastWidth || rect.height !== this.broadcastHeight;
+};
+
+/**
+ * Updates 'broadcastWidth' and 'broadcastHeight' properties with a data
+ * from the corresponding properties of the last observed content rectangle.
+ *
+ * @returns {DOMRectInit} Last observed content rectangle.
+ */
+ResizeObservation.prototype.broadcastRect = function () {
+    var rect = this.contentRect_;
+
+    this.broadcastWidth = rect.width;
+    this.broadcastHeight = rect.height;
+
+    return rect;
+};
+
+var ResizeObserverEntry = function(target, rectInit) {
+    var contentRect = createReadOnlyRect(rectInit);
+
+    // According to the specification following properties are not writable
+    // and are also not enumerable in the native implementation.
+    //
+    // Property accessors are not being used as they'd require to define a
+    // private WeakMap storage which may cause memory leaks in browsers that
+    // don't support this type of collections.
+    defineConfigurable(this, { target: target, contentRect: contentRect });
+};
+
+var ResizeObserverSPI = function(callback, controller, callbackCtx) {
+    this.activeObservations_ = [];
+    this.observations_ = new MapShim();
+
+    if (typeof callback !== 'function') {
+        throw new TypeError('The callback provided as parameter 1 is not a function.');
+    }
+
+    this.callback_ = callback;
+    this.controller_ = controller;
+    this.callbackCtx_ = callbackCtx;
+};
+
+/**
+ * Starts observing provided element.
+ *
+ * @param {Element} target - Element to be observed.
+ * @returns {void}
+ */
+
+
+/**
+ * Registry of the ResizeObservation instances.
+ *
+ * @private {Map<Element, ResizeObservation>}
+ */
+
+
+/**
+ * Public ResizeObserver instance which will be passed to the callback
+ * function and used as a value of it's "this" binding.
+ *
+ * @private {ResizeObserver}
+ */
+
+/**
+ * Collection of resize observations that have detected changes in dimensions
+ * of elements.
+ *
+ * @private {Array<ResizeObservation>}
+ */
+ResizeObserverSPI.prototype.observe = function (target) {
+    if (!arguments.length) {
+        throw new TypeError('1 argument required, but only 0 present.');
+    }
+
+    // Do nothing if current environment doesn't have the Element interface.
+    if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+        return;
+    }
+
+    if (!(target instanceof getWindowOf(target).Element)) {
+        throw new TypeError('parameter 1 is not of type "Element".');
+    }
+
+    var observations = this.observations_;
+
+    // Do nothing if element is already being observed.
+    if (observations.has(target)) {
+        return;
+    }
+
+    observations.set(target, new ResizeObservation(target));
+
+    this.controller_.addObserver(this);
+
+    // Force the update of observations.
+    this.controller_.refresh();
+};
+
+/**
+ * Stops observing provided element.
+ *
+ * @param {Element} target - Element to stop observing.
+ * @returns {void}
+ */
+ResizeObserverSPI.prototype.unobserve = function (target) {
+    if (!arguments.length) {
+        throw new TypeError('1 argument required, but only 0 present.');
+    }
+
+    // Do nothing if current environment doesn't have the Element interface.
+    if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+        return;
+    }
+
+    if (!(target instanceof getWindowOf(target).Element)) {
+        throw new TypeError('parameter 1 is not of type "Element".');
+    }
+
+    var observations = this.observations_;
+
+    // Do nothing if element is not being observed.
+    if (!observations.has(target)) {
+        return;
+    }
+
+    observations.delete(target);
+
+    if (!observations.size) {
+        this.controller_.removeObserver(this);
+    }
+};
+
+/**
+ * Stops observing all elements.
+ *
+ * @returns {void}
+ */
+ResizeObserverSPI.prototype.disconnect = function () {
+    this.clearActive();
+    this.observations_.clear();
+    this.controller_.removeObserver(this);
+};
+
+/**
+ * Collects observation instances the associated element of which has changed
+ * it's content rectangle.
+ *
+ * @returns {void}
+ */
+ResizeObserverSPI.prototype.gatherActive = function () {
+        var this$1 = this;
+
+    this.clearActive();
+
+    this.observations_.forEach(function (observation) {
+        if (observation.isActive()) {
+            this$1.activeObservations_.push(observation);
+        }
+    });
+};
+
+/**
+ * Invokes initial callback function with a list of ResizeObserverEntry
+ * instances collected from active resize observations.
+ *
+ * @returns {void}
+ */
+ResizeObserverSPI.prototype.broadcastActive = function () {
+    // Do nothing if observer doesn't have active observations.
+    if (!this.hasActive()) {
+        return;
+    }
+
+    var ctx = this.callbackCtx_;
+
+    // Create ResizeObserverEntry instance for every active observation.
+    var entries = this.activeObservations_.map(function (observation) {
+        return new ResizeObserverEntry(observation.target, observation.broadcastRect());
+    });
+
+    this.callback_.call(ctx, entries, ctx);
+    this.clearActive();
+};
+
+/**
+ * Clears the collection of active observations.
+ *
+ * @returns {void}
+ */
+ResizeObserverSPI.prototype.clearActive = function () {
+    this.activeObservations_.splice(0);
+};
+
+/**
+ * Tells whether observer has active observations.
+ *
+ * @returns {boolean}
+ */
+ResizeObserverSPI.prototype.hasActive = function () {
+    return this.activeObservations_.length > 0;
+};
+
+// Registry of internal observers. If WeakMap is not available use current shim
+// for the Map collection as it has all required methods and because WeakMap
+// can't be fully polyfilled anyway.
+var observers = typeof WeakMap !== 'undefined' ? new WeakMap() : new MapShim();
+
+/**
+ * ResizeObserver API. Encapsulates the ResizeObserver SPI implementation
+ * exposing only those methods and properties that are defined in the spec.
+ */
+var ResizeObserver = function(callback) {
+    if (!(this instanceof ResizeObserver)) {
+        throw new TypeError('Cannot call a class as a function.');
+    }
+    if (!arguments.length) {
+        throw new TypeError('1 argument required, but only 0 present.');
+    }
+
+    var controller = ResizeObserverController.getInstance();
+    var observer = new ResizeObserverSPI(callback, controller, this);
+
+    observers.set(this, observer);
+};
+
+// Expose public methods of ResizeObserver.
+['observe', 'unobserve', 'disconnect'].forEach(function (method) {
+    ResizeObserver.prototype[method] = function () {
+        return (ref = observers.get(this))[method].apply(ref, arguments);
+        var ref;
+    };
+});
+
+var index = (function () {
+    // Export existing implementation if available.
+    if (typeof global$1.ResizeObserver !== 'undefined') {
+        return global$1.ResizeObserver;
+    }
+
+    return ResizeObserver;
+})();
+
+/* harmony default export */ __webpack_exports__["default"] = (index);
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(90)))
+
+/***/ }),
+/* 441 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// import * as React from 'react';
+// import {Ajax} from "../utils/ajax";
+//
+// import '../../styles/page-gallery.scss';
+//
+// export class Gallery extends React.Component {
+//     constructor() {
+//         super();
+//         this.state = {
+//             actorImgs: []
+//         };
+//     }
+//
+//     load() {
+//         Ajax.get('http://5b744cf8a5837400141908e4.mockapi.io/tomImgs',
+//             (resp) => {
+//                 this.setState({
+//                     actorImgs: resp
+//                 });
+//                 console.log(this.state.actorImgs);
+//             },
+//             (e) => {
+//                 console.log(e);
+//             }
+//         );
+//     }
+//
+//     componentDidMount() {
+//         let btn = document.querySelector(".page-gallery__btn");
+//         let item = document.querySelector(".page-content");
+//         btn.addEventListener('click', () => {
+//             item.classList.toggle("page-content_active")
+//         });
+//         this.load();
+//     }
+//
+//     render() {
+//         return (
+//             <div className="page-gallery">
+//                 <div className="page-gallery__header">
+//                     <div className="page-gallery__caption">
+//                         <div className="page-gallery__name">Photos</div>
+//                         <div className="page-gallery__number"> • {this.state.actorImgs.length}</div>
+//                     </div>
+//                     <button className="page-gallery__btn"></button>
+//                 </div>
+//                 <div className="page-gallery__photos">
+//                     {this.state.actorImgs.map((index) => {
+//                         return <img src={index.img} alt="img" key={index.id}/>
+//                     })}
+//                 </div>
+//             </div>
+//         )
+//     }
+//
+//     render() {
+//         return (
+//             <div className="page-gallery">
+//                 <div className="page-gallery__header">
+//                     <div className="page-gallery__caption">
+//                         <div className="page-gallery__name">Photos</div>
+//                         <div className="page-gallery__number">{this.props.quantity}</div>
+//                     </div>
+//                     <button className="page-gallery__btn"></button>
+//                 </div>
+//                 <div className="page-gallery__photos">
+//
+//                     < img
+//                         src={this.props.img1}
+//                         alt="img"/>
+//                     < img
+//                         src={this.props.img2}
+//                         alt="img"/>
+//                     < img
+//                         src={this.props.img3}
+//                         alt="img"/>
+//                     < img
+//                         src={this.props.img4}
+//                         alt="img"/>
+//                     < img
+//                         src={this.props.img5}
+//                         alt="img"/>
+//                     < img
+//                         src={this.props.img6}
+//                         alt="img"/>
+//                     < img
+//                         src={this.props.img7}
+//                         alt="img"/>
+//                     < img
+//                         src={this.props.img8}
+//                         alt="img"/>
+//                     < img
+//                         src={this.props.img9}
+//                         alt="img"/>
+//                 </div>
+//             </div>
+//         )
+//     }
+// }
+
 
 /***/ })
 /******/ ]);

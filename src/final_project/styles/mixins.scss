@@ -1,10 +1,11 @@
 @import './variables.scss';
 
-$sxs-screen: 409px;
+$sxs-screen: 398px;
 $xs-screen: 480px;
 $sml-screen: 585px;
 $sm-screen: 720px;
 $md-screen: 980px;
+$mdP-screen: 1135px;
 $lg-screen: 1366px;
 $xl-screen: 1920px;
 
@@ -48,6 +49,12 @@ $page-padding-left: 12px;
 
 @mixin tablet {
   @media (max-width: #{$md-screen - 0.1px}) {
+    @content;
+  }
+}
+
+@mixin tabletP {
+  @media (max-width: #{$mdP-screen - 0.1px}) {
     @content;
   }
 }

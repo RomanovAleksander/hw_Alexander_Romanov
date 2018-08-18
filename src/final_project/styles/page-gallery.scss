@@ -2,11 +2,8 @@
 
 .page-gallery {
   width: 609px;
-  height: 243px;
-  transition: all 1s ease-out;
-  transition-duration: .5s;
-  transition-property: all;
-  transform-origin: top;
+  max-height: 243px;
+  transition: max-height 15s ease-in-out;
   @include s-mobile {
     width: 100%;
   }
@@ -53,13 +50,14 @@
     margin-right: 20px;
     &::after {
       content: '+';
+      display: inline-block;
       transition-duration: 0.5s;
     }
   }
   &__photos {
     padding-left: 13px;
     min-width: 193px;
-    height: 130px;
+    //height: 130px;
     display: flex;
     flex-wrap: wrap;
     @include s-mobile {
@@ -77,36 +75,20 @@
 
 .page-content_active {
   .page-gallery {
-    transition-duration: .5s;
-    height: 468px;
+    min-height: 243px;
+    max-height: 100000px;
     &__btn {
-      &::after {
+      &:after {
         color: white;
         content: '-';
         transition-duration: 0.5s;
-        transform: skew(45deg);
+        transform: rotate(360deg);
       }
-    }
-    @include mobile {
-      height: 409px;
-    }
-    @include s-mobile {
-      height: 732px;
-    }
-    @include sxs-mobile {
-      height: 1253px;
     }
   }
   .page-aside {
     @include tablet {
       transition-duration: .5s;
-      //height: 1141px;
     }
-    @include mobile {
-      //height: 1082px;
-    }
-    //@include s-mobile {
-    //  height: 1405px;
-    //}
   }
 }
