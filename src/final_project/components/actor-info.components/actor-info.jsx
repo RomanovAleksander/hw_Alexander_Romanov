@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Ajax} from '../utils/ajax.js'
 import {ActorInfoItem} from './actor-infoItem.jsx';
 import {ControlButton} from "../controlbuttons.components/controlButton.components.jsx";
-import {SliderStatic} from '../slider/sliderStatic.jsx'
+// import {SliderStatic} from '../slider/sliderStatic.jsx'
 import ResizeObserver from 'resize-observer-polyfill';
 
 let timer;

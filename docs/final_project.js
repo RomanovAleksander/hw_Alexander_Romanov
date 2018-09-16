@@ -29381,7 +29381,7 @@ var Actor = exports.Actor = function (_React$Component) {
         value: function componentDidMount() {
             this.load();
             var btn = document.querySelector(".page-gallery__btn");
-            var item = document.querySelector(".page-content.components");
+            var item = document.querySelector(".page-content");
             btn.addEventListener('click', function () {
                 item.classList.toggle("page-content_active");
             });
@@ -29664,7 +29664,7 @@ var Actor = exports.Actor = function (_React$Component) {
 
             return React.createElement(
                 'div',
-                { className: 'page-actor-info.components' },
+                { className: 'page-actor-info' },
                 controls,
                 aboutActor,
                 React.createElement(
@@ -29776,7 +29776,7 @@ var Actor = exports.Actor = function (_React$Component) {
                 ),
                 React.createElement(
                     'div',
-                    { className: 'page-gallery.components' },
+                    { className: 'page-gallery' },
                     React.createElement(
                         'div',
                         { className: 'page-gallery__header' },
@@ -30081,7 +30081,7 @@ var Header = exports.Header = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 "header",
-                { className: "page-header.components" },
+                { className: "page-header" },
                 React.createElement(
                     "div",
                     { className: "page-aside__logo" },
@@ -30385,7 +30385,7 @@ function PageAside() {
             { className: "page-aside__account-block" },
             React.createElement(
                 "div",
-                { className: "page-aside__account-block-header.components" },
+                { className: "page-aside__account-block-header" },
                 React.createElement(
                     "a",
                     { href: "" },
@@ -30513,7 +30513,7 @@ var PageContent = exports.PageContent = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 "div",
-                { className: "page-content.components" },
+                { className: "page-content" },
                 React.createElement(PageAside, null),
                 React.createElement(_actorInfo.Actor, null)
             );

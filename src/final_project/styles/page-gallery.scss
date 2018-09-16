@@ -3,7 +3,7 @@
 .page-gallery {
   width: 609px;
   max-height: 243px;
-  transition: max-height 15s ease-in-out;
+  transition: max-height 5s ease-in-out;
   @include s-mobile {
     width: 100%;
   }
@@ -76,7 +76,7 @@
 .page-content_active {
   .page-gallery {
     min-height: 243px;
-    max-height: 100000px;
+    max-height: 10000px;
     &__btn {
       &:after {
         color: white;
